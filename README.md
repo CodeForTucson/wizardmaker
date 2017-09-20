@@ -3,9 +3,6 @@ The purpose of this system is to make it much easier to create high quality, com
 
 Code for Tucson has taken on this project because we have some preliminary evidence that sustainability groups and other non-profits would benefit from such a tool.  We will, however, confirm this going forward.
 
-Note that this project is unusual because it is mostly a UXD effort. It is quite possible that we will not come up with a design that allows most content experts, relatively unskilled with computers, to easily create a wizard. So before we look for coding resources we will investigate proposed designs and try to determine the feasibility of the project from a UXD point of view. It is also quite possible that, even if we prove the feasibility of the project, the development will be too great a task to fit within Code for Tucson's resources. We will cross that bridge when and if we come to it.
-
-You can find the plans and storyboard for this project at https://drive.google.com/drive/folders/0BzmFTi2U9i8yYVp6aDgwNWMwMzg
-
+We have run one usability test and are ready to create a new more functional prototype. You can find the spec for the next prototype at https://drive.google.com/drive/folders/0B-aMzFGhQdHZSjQ0Z3h5T3FWRXM?usp=sharing.
 
 
