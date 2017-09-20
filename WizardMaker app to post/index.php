@@ -1,5 +1,7 @@
 <?php
-/* This is the home page for this site. 
+/* This is the home page for this site.
+9-20-17 
+Just learning about Github so I will commit some minor change and see how it goes
 It uses templates to create the layout. */
 // set the title
 define('WIZTITLE', 'All Wizards');
@@ -27,7 +29,7 @@ function setAndGo(name,file) {
 </script>
 <?php
 // Leave the PHP section to display lots of HTML:
-print '<h3> Select a wizard or select + to add a new wizard </h3>';
+print '<h3> Select a wizard or select + to add a new wizard</h3>';
 //find out how many wizards there are in wizlisting.xmlEncoding
 
 // for each listing, print the name and description 
