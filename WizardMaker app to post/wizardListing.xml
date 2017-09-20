@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wizardList>
+  <wizard>
+    <wizname>wiztest9</wizname>
+    <wizdesc>Now is the time for all good men to come to the aid of their country</wizdesc>
+    <wizfile>wiztest9.xml</wizfile>
+  </wizard>
+  <wizard>
+    <wizname>wiztest11</wizname>
+    <wizdesc>Ok, time for a new description.</wizdesc>
+    <wizfile>wiztest11.xml</wizfile>
+  </wizard>
+  <wizard>
+    <wizname>Newtest1</wizname>
+    <wizdesc>blah blah blah.</wizdesc>
+    <wizfile>Newtest1.xml</wizfile>
+  </wizard>
+  <wizard>
+    <wizname>test4</wizname>
+    <wizdesc>Dig up he ground.</wizdesc>
+    <wizfile>test4.xml</wizfile>
+  </wizard>
+  <wizard>
+    <wizname>test5</wizname>
+    <wizdesc>blah blah blah.</wizdesc>
+    <wizfile>test5.xml</wizfile>
+  </wizard>
+  <wizard>
+    <wizname>test7</wizname>
+    <wizdesc>OK dummy, try it again.</wizdesc>
+    <wizfile>test7.xml</wizfile>
+  </wizard>
+  <wizard>
+    <wizname>test11</wizname>
+    <wizdesc>blah blah blah.</wizdesc>
+    <wizfile>test11.xml</wizfile>
+  </wizard>
+  <wizard>
+    <wizname>test12</wizname>
+    <wizdesc>Now is the time for all good men to come to the aid of their country</wizdesc>
+    <wizfile>test12.xml</wizfile>
+  </wizard>
+  <wizard>
+    <wizname>test13</wizname>
+    <wizdesc>Hey, hey hey.</wizdesc>
+    <wizfile>test13.xml</wizfile>
+  </wizard>
+</wizardList>

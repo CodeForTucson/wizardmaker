@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wizard>
+  <step>
+    <title>Build the box</title>
+    <instruct>Use our kit or go it alone.</instruct>
+    <selements>
+      <selem>Ask Input</selem>
+      <selem>video</selem>
+    </selements>
+  </step>
+</wizard>

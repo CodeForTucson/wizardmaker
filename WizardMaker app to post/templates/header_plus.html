@@ -1,0 +1,97 @@
+<?php
+ob_start();
+?>
+<!DOCTYPE html>
+<!--
+7/13/17
+Header that has navigation and plus symbol
+-->
+<html lang="en">
+<head>
+<!-- the title will be defined by a defined constant -->
+	<title>WizardMaker</title>	
+	 <!--
+	 following 5 lines added for Boodstrap framework, see W3schools section 
+	 But I add my own stylesheet to overwrite the bootstrap one when needed
+	 --> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+	<!-- <link rel="stylesheet" href="WizApp.css" /> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<!-- <script src="PTJquery.js"></script> -->
+</head>
+<body>
+<div class="container-fluid">
+	<!-- Here is the horizontal form - complex due to Bootstrap conventions -->
+	<div class="row">
+		<div class="col-xs-12">
+			<h1>
+			<?php
+			if (defined('WIZTITLE')) {
+				print WIZTITLE;
+			} else {
+				print 'Title not defined';
+			}
+			?>
+			</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-1">
+			<div class="btn-group btn-group-lg">
+    		<?php
+			if (defined('BUTTON_1')) {
+				print BUTTON_1;
+			} else {
+				print 'BUTTON_1';
+			}
+			?>	
+  			</div>
+    	</div>
+    	<div class="col-xs-1">
+			<div class="btn-group btn-group-lg">
+    		<?php
+			if (defined('BUTTON_2')) {
+				print BUTTON_2;
+			} else {
+				print 'BUTTON_2';
+			}
+			?>	
+  			</div>
+    	</div>
+    	<div class="col-xs-1">
+			<div class="btn-group btn-group-lg">
+    		<?php
+			if (defined('BUTTON_3')) {
+				print BUTTON_3;
+			} else {
+				print 'BUTTON_3';
+			}
+			?>	
+  			</div>
+    	</div>
+    	<div class="col-xs-4">
+			
+    	</div>
+    	<div class="col-xs-1">
+			<div class="btn-group btn-group-lg">
+    		<?php
+			if (defined('BUTTON_4')) {
+				print BUTTON_4;
+			} else {
+				print 'BUTTON_4';
+			}
+			?>	
+  			</div>
+    	</div>
+    	<div class="col-xs-4">
+			
+    	</div>
+ 	</div>
+ 	<div class="row">
+		<div class="col-sm-12">
+		<p></p>
+		</div>
+    </div>
