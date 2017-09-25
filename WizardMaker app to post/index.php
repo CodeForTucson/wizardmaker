@@ -9,7 +9,9 @@ define('WIZTITLE', 'All Wizards');
 define('BUTTON_1', '<a href="" class="btn btn-primary" role="button">
          			Edit
          			</a>');
-define('BUTTON_2', '');
+define('BUTTON_2', '<a href="" class="btn btn-primary" role="button">
+         			Help
+         			</a>');
 define('BUTTON_3', '');
 define('BUTTON_4', '<a href="settings.php" class="btn btn-primary" role="button">
     				<span class="glyphicon glyphicon-plus"></span>
@@ -41,8 +43,18 @@ $xml=simplexml_load_file("wizardListing.xml") or die("Error: Cannot create objec
 foreach ($xml-> children() as $wizard) {
 	$name = $wizard->wizname;
 	$file = $wizard->wizfile;
+	$desc = $wizard->wizdesc;
 	$location = "wiz_step.php";
-	print "<button class='btn-info' onclick=setAndGo('" . $name . "','" . $file . "')>" . $name . "</button><br>";
+	// For each button and descrition, create a bootstrap row
+	print '<div class="row">
+		<div class="col-xs-4">';
+	// print "<button class='btn-info' onclick=setAndGo('" . $name . "','" . $file . "')>" . $name . "</button><br>";
+	print "<button class='btn-info' onclick=setAndGo('" . $name . "','" . $file . "')>" . $name . "</button>";
+	print '</div>';
+	print '<div class="col-xs-6">';
+ 	print  $desc;
+ 	print '</div>';
+	print '</div>';
 	print '<br>';
 	// does not like class='btn btn-block'
 	// print "<button onclick=setAndGo('" . $name . "','" . $file . "')>" . $name . "</button><br>";	    
