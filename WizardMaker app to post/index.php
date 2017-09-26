@@ -13,7 +13,9 @@ define('BUTTON_2', '<a href="" class="btn btn-primary" role="button">
          			Help
          			</a>');
 define('BUTTON_3', '');
-define('BUTTON_4', '<a href="settings.php" class="btn btn-primary" role="button">
+define('BUTTON_4', '');
+define('BUTTON_5', '');
+define('BUTTON_6', '<a href="settings.php" class="btn btn-primary" role="button">
     				<span class="glyphicon glyphicon-plus"></span>
     				</a>');
 // Include the header:
