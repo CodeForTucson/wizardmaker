@@ -19,9 +19,14 @@ define('BUTTON_1', '<button class="btn btn-primary"
 					onclick="setAndGo(0,\'back\')">
          			<span class="glyphicon glyphicon-chevron-left"></span>All Steps
          			</button>');
-define('BUTTON_2', '');
+define('BUTTON_2', '<a href="" class="btn btn-primary" role="button">
+         			Help
+         			</a>');
 define('BUTTON_3', '');
-define('BUTTON_4', '<button  class="btn btn-primary"  
+define('BUTTON_4', '');
+define('BUTTON_5', '');
+define('BUTTON_6', '');
+define('BUTTON_7', '<button  class="btn btn-primary"  
 					onclick="setAndGo(0,\'add\')">
     				<span class="glyphicon glyphicon-plus"></span>
     				</button>');
@@ -150,8 +155,16 @@ $allElems = $sxe->xpath('/wizard/step[' . $snum . ']/selements/selem');
 print '<br>';
 // print the list of elements but go directly to their page for edits, not add_element
 foreach($allElems as $eNum => $eText) {
-	// print '<button class="btn-info" onclick="setAndGo(\'' . $eNum . '\',\'elem\')">' . $eText . '</button><br>';
+	print '<div class="row">
+		<div class="col-xs-4">';
 	print '<button class="btn-info" onclick="setAndGo(\'' . $eNum . '\',\''. $eText . '\')">' . $eText . '</button><br>';
+	print '</div>';
+	print '<div class="col-xs-6">';
+	// in the future we will put an image, variable name or part of the text by each element
+	// depending on the type of element
+ 	print  "";       
+ 	print '</div>';
+	print '</div>';
 	print '<br>';
 }
 
