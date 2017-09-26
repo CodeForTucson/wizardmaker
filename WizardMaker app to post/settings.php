@@ -15,7 +15,8 @@ define('BUTTON_2', '<a href="" class="btn btn-primary" role="button">
 define('BUTTON_3', '');
 define('BUTTON_4', '');
 define('BUTTON_5', '');
-define('BUTTON_6', '<button type="submit" form="settingsForm" class="btn btn-primary">
+define('BUTTON_6', '');
+define('BUTTON_7', '<button type="submit" form="settingsForm" class="btn btn-primary">
     				Done
     				</button>');
 // Include the header:

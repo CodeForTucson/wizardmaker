@@ -16,10 +16,10 @@ Header that has navigation and plus symbol
 	 --> 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="CSS/WizApp.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="CSS/WizApp.css" /> 
 	<!-- <script src="PTJquery.js"></script> -->
 </head>
 <body>
@@ -39,56 +39,63 @@ Header that has navigation and plus symbol
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-1">
-			<div class="btn-group btn-group-lg">
+		<div class="col-xs-9">
+			<div class="btn-toolbar">
     		<?php
 			if (defined('BUTTON_1')) {
 				print BUTTON_1;
 			} else {
 				print 'BUTTON_1';
 			}
-			?>	
-  			</div>
-    	</div>
-    	<div class="col-xs-1">
-			<div class="btn-group btn-group-lg">
-    		<?php
 			if (defined('BUTTON_2')) {
 				print BUTTON_2;
 			} else {
 				print 'BUTTON_2';
 			}
-			?>	
-  			</div>
-    	</div>
-    	<div class="col-xs-1">
-			<div class="btn-group btn-group-lg">
-    		<?php
 			if (defined('BUTTON_3')) {
 				print BUTTON_3;
 			} else {
 				print 'BUTTON_3';
 			}
-			?>	
-  			</div>
-    	</div>
-    	<div class="col-xs-4">
-			
-    	</div>
-    	<div class="col-xs-1">
-			<div class="btn-group btn-group-lg">
-    		<?php
 			if (defined('BUTTON_4')) {
 				print BUTTON_4;
 			} else {
 				print 'BUTTON_4';
 			}
+			if (defined('BUTTON_5')) {
+				print BUTTON_5;
+			} else {
+				print 'BUTTON_5';
+			}
+			if (defined('BUTTON_6')) {
+				print BUTTON_6;
+			} else {
+				print 'BUTTON_6';
+			}
 			?>	
   			</div>
     	</div>
-    	<div class="col-xs-4">
+    
+    	<!-- 
+<div class="col-xs-2">
 			
     	</div>
+ -->
+    	<div class="col-xs-2">
+			<!-- <div class="btn-group btn-group-lg"> -->
+    		<?php
+			if (defined('BUTTON_7')) {
+				print BUTTON_7;
+			} else {
+				print 'BUTTON_7';
+			}
+			?>	
+  			<!-- </div> -->
+    	</div>
+    	<div class="col-xs-1">
+			
+    	</div>
+
  	</div>
  	<div class="row">
 		<div class="col-sm-12">

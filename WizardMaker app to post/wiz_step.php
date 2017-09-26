@@ -16,10 +16,19 @@ define('BUTTON_1', '<a href="index.php" class="btn btn-primary" role="button">
 define('BUTTON_2', '<a href="" class="btn btn-primary" role="button">
          			Help
          			</a>');
-define('BUTTON_3', '');
-define('BUTTON_4', '');
-define('BUTTON_5', '');
-define('BUTTON_6', '<button  class="btn btn-primary"  
+define('BUTTON_3', '<a href="" class="btn btn-primary" role="button">
+         			Edit
+         			</a>');
+define('BUTTON_4', '<a href="" class="btn btn-primary" role="button">
+         			Preview
+         			</a>');
+define('BUTTON_5', '<a href="" class="btn btn-primary" role="button">
+         			Settings
+         			</a>');
+define('BUTTON_6', '<a href="" class="btn btn-primary" role="button">
+         			Export
+         			</a>');
+define('BUTTON_7', '<button  class="btn btn-primary"  
 					onclick="setAndGo(0,\'add\',0)">
     				<span class="glyphicon glyphicon-plus"></span>
     				</button>');
