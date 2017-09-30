@@ -16,9 +16,13 @@ define('BUTTON_3', '');
 define('BUTTON_4', '');
 define('BUTTON_5', '');
 define('BUTTON_6', '');
-define('BUTTON_7', '<a href="settings.php" class="btn btn-primary" role="button">
-    				<span class="glyphicon glyphicon-plus"></span>
-    				</a>');
+define('BUTTON_7', '<button class="btn btn-primary" role="button" onclick="goSettings()">
+					<span class="glyphicon glyphicon-plus"></span>
+					</button>');
+
+// define('BUTTON_7', '<onclick="goSettings()" class="btn btn-primary" role="button">
+//     				<span class="glyphicon glyphicon-plus"></span>
+//     				</a>');
 // Include the header:
 include 'templates/header_plus.html';
 //check to see if GET data received, if so set cookies and go to wiz_step.php
@@ -30,6 +34,11 @@ function setAndGo(name,file) {
     document.cookie = "c_name=" + name;
     document.cookie = "c_file=" + file;
     window.location.assign("http://betterstuffbetterlife.com/pttrot/WizardMakerApp/wiz_step.php");
+}
+// set cookie so Settings knows this is a new wizard.
+function goSettings() {
+    document.cookie = "c_from=" + "index";
+    window.location.assign("http://betterstuffbetterlife.com/pttrot/WizardMakerApp/settings.php");
 }
 </script>
 <?php
@@ -48,10 +57,9 @@ foreach ($xml-> children() as $wizard) {
 	$file = $wizard->wizfile;
 	$desc = $wizard->wizdesc;
 	$location = "wiz_step.php";
-	// For each button and descrition, create a bootstrap row
+	// For each button and descrition, create a bootstrap row with two columns
 	print '<div class="row">
 		<div class="col-xs-4">';
-	// print "<button class='btn-info' onclick=setAndGo('" . $name . "','" . $file . "')>" . $name . "</button><br>";
 	print "<button class='btn-info' onclick=setAndGo('" . $name . "','" . $file . "')>" . $name . "</button>";
 	print '</div>';
 	print '<div class="col-xs-6">';
@@ -59,8 +67,7 @@ foreach ($xml-> children() as $wizard) {
  	print '</div>';
 	print '</div>';
 	print '<br>';
-	// does not like class='btn btn-block'
-	// print "<button onclick=setAndGo('" . $name . "','" . $file . "')>" . $name . "</button><br>";	    
+		    
 }
 // end of row add blank column to right
 

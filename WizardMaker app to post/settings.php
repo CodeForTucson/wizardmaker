@@ -1,7 +1,5 @@
 <?php
-/*This is the settings page  8-28-17
-todo:
-x- fixred filer name business to add directory and got rid of GET data 8-28
+/*This is the settings page 
 */
 // set the title
 define('WIZTITLE', 'Settings');
@@ -28,32 +26,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	// Handle the form:
 	if ( (!empty($_POST['wname'])) && (!empty($_POST['wdesc'])) ) {
 		 // Correct! 
-		 	$wname = $_POST["wname"]; // get user input
-			$wdesc = $_POST["wdesc"];
-			//$wfile2 = $wname . ".xml";  // .php to the name to make a file
-			$wstepnum = 1; // since new, creat first step
-		 	wizFiles($wname,$wdesc); //  save the data in xml 
-		 	// Redirect the user to the welcome page!
-			ob_end_clean(); // Destroy the buffer!
-			// don't need GET data anymore
-			// $hstring = "Location: add_step.php" . "?name=" . $wname . "&file=" . $wfile2 . "&snum=" . $wstepnum;
+		$wname = $_POST["wname"]; // get user input
+		$wdesc = $_POST["wdesc"];
+		$wstepnum = 1; // since new, creat first step
+		wizFiles($wname,$wdesc); //  save the data in xml 
+		ob_end_clean(); // Destroy the buffer!
+		if ($_COOKIE['c_from'] == "allSteps") {
+			$hstring = "Location: wiz_step.php";
+		} else {
 			$hstring = "Location: add_step.php";
-			header($hstring);
-			// header('Location: wiz_step.php');
-			exit(); 
+		}
+		header($hstring);
+		exit(); 
 	} else { // Forgot a field.
 		print '<p class="text--error">Please make sure you enter both a name 
 		and a description!<br>Go back and try again.</p>';
 	}
-} else { // Display the form.
+} else { // Display the form. If coming from All Steps, show the present title and decription for editing.
+// check the cookies and be prepared to go to All Steps if it came from there.
+	if($_COOKIE['c_from'] == "allSteps") {
+		$placeName = $_COOKIE['c_name']; // set the placeholder to the existing name and description
+		$placeDesc = $_COOKIE['c_desc'];
+	} else {
+		$placeName = "";
+		$placeDesc = "";
+	}
 	print '<form action="settings.php" method="post" id="settingsForm">
 				<div class="form-group">
 				  <label for="idname">Name:</label>
-				  <input type="text" class="form-control" id="idname" placeholder="Enter name of the wizard" name="wname">
+				  <input type="text" class="form-control" id="idname" value="' . $placeName . '" name="wname">
 				</div>
 				<div class="form-group">
 				  <label for="iddes">Description:</label>
-				  <input type="text" class="form-control" id="iddes" placeholder="Enter a short description" name="wdesc">
+				  <input type="text" class="form-control" id="iddes" value="' . $placeDesc . '" name="wdesc">
 				</div>
   			</form>';
 }
@@ -63,6 +68,7 @@ function wizFiles($name,$desc) {
 	// save key data as cookies
 	setcookie('c_name', $name); // save the name of the wizard
 	setcookie('c_file', $wfile); // save the file name of the wizard
+	setcookie('c_desc', $desc); // save the description of the wizard
 	setcookie('c_snum', '1'); // save the name of the wizard
 	// create the new xml file for the wizard
 	$myfile = fopen($wfile, "w") or die("Unable to open file!");
