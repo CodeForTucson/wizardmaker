@@ -1,19 +1,13 @@
 <?php
-/* This page creates or edits a new step and lists all elements.  8/25/17
-todo's:
-x look at xml file and figure out if this step is new or an edit.
-x if an edit, reload the title and instruction fields 
-x Load the xml as we move to next page with changes
-x figure out how to get the instruction text.
-X  finish the part that decides where to go, make it a switch, not an if
-- handle more than one step
+/* This page creates a new step and lists all elements. 10-16-17 9:14
+  You can enter an title and instructions for the step and edit them later.
 */
 // read the cookies
 $wname = $_COOKIE['c_name'];
 $wfile = $_COOKIE['c_file'];
 $snum = $_COOKIE['c_snum'];  // step number
 // set the title
-define('WIZTITLE',$wname . ' Step ' . $snum );
+define('WIZTITLE', $wname . ': Step ' . $snum );
 // set the four buttons left to right Edit/back nav, Settings, Preview, Done/plus sign
 define('BUTTON_1', '<button class="btn btn-primary" 
 					onclick="setAndGo(0,\'back\')">
@@ -30,7 +24,7 @@ define('BUTTON_7', '<button  class="btn btn-primary"
 					onclick="setAndGo(0,\'add\')">
     				<span class="glyphicon glyphicon-plus"></span>
     				</button>');
-// define('BUTTON_4', '<button  class="btn btn-primary"  
+// define('BUTTON_7', '<button  class="btn btn-primary"  
 // 					onclick="setAndGo(\'' . $eNum . '\',\'add\')">
 //     				<span class="glyphicon glyphicon-plus"></span>
 //     				</button>');
@@ -38,11 +32,11 @@ define('BUTTON_7', '<button  class="btn btn-primary"
 // Include the header:
 include 'templates/header_plus.html';
 ?>
-<!-- leave php to add javascript for setting cookies, the  go to wiz_step 
+<!-- leave php to add javascript for setting cookies.
 	need to do submit here and let post processing code save changes
 -->
 <script>
-// change this to get the element type and go   . to their page if it is an edit
+// !!! change this to get the element type and go to their page if it is an edit
 // and bypass add_element.php
 function setAndGo(ecount,subber) {
     document.cookie = "subBy=" + subber;  // sets the cookie subBy to subber
@@ -51,11 +45,15 @@ function setAndGo(ecount,subber) {
     document.getElementById("settingsForm").submit();
     //window.location.assign("http://betterstuffbetterlife.com/pttrot/WizardMakerApp/add_element.php");
 }
+function gotoElement(ecount,gotoElPage) {
+    document.cookie = "subBy=" + "edit";  // sets the cookie subBy to edit because you clicked an existing one
+    document.cookie = "c_sele=" + ecount; // which element
+    // need to create a path
+    window.location.assign("http://betterstuffbetterlife.com/pttrot/WizardMakerApp/" + gotoElPage);
+}
 </script>
 <?php
-/* Load in the wizard xml file
-Preload the title and instructions if they exist using Value parameter for this step
-*/ 
+// Load in the wizard xml file
 // use dom because then the output is readable and not one long line
 // first load the file
 $doc = new DOMDocument();
@@ -72,7 +70,6 @@ $instValue = $sxe->step[$snum - 1]->instruct; // get present instructions for st
 $titleValue = ''; // blanked these out because when first creating the step was a pain to delete
 $instValue = '';
 }
-//print 'the title is ' . $titleValue . '<b>';
 //Ask user to enter the title of the step and instructions (optional)
 print '<h3> Enter or edit the title and instructions (optional) </h3>';
 // use the form to  get these data
@@ -86,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		 	//Hmm, check out this -1 business
 		 	if (isset($sxe->step[$snum - 1])) {  // if this step exists
 				// change values of title and instruction
-				// wrong below, must change the specific node
 				$sxe->step[$snum - 1]->title = $stitle;
 				$sxe->step[$snum - 1]->instruct = $sinstr;
 		 	} else { // add a new step on the end`
@@ -95,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$lastStep = $sxe->step[$sxe->step->count() - 1];
 				$lastStep->addChild("title", $stitle); // add children to this last step
 				$lastStep->addChild("instruct", $sinstr);
-				$lastStep->addChild("selements"); // add location for the elements.
+				$lastStep->addChild("stepElems"); // add location for the elements.		
 			}
 			$doc->loadXML($sxe->asXML()); // convert back to DOM document
 			$doc->save($wfile);
@@ -112,6 +108,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					break;
 				case "add":
 					header('Location: add_element.php');
+					break;
+				case "text":
+					header('Location: text_element.php');
 					break;
 				case "Ask for Input":
 					header('Location: askInput_element.php');
@@ -141,31 +140,78 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 // second set of instructions
 print '<h3> Select an element to edit or select + to add an element </h3>';
-/* Load and list all the elements of this step
-Add subroutine to set cookies and link away as done in index.PHP
-*/
-//print 'ok, got to the listing part <br>';
-// test of xpath
-$allElems = $sxe->xpath('/wizard/step[' . $snum . ']/selements/selem');
-//print_r ($allElems);
-//print '<br>';
-//var_dump($allElems);
-//print '<br>';
-//print $allElems[0];
-print '<br>';
+// Load and list all the elements of this step
+// !! next line is wrong -- come back and fix
+//$allElems = $sxe->xpath('/wizard/step[' . $snum . ']/stepElems/*');
+// print 'step is ' . $snum . '<br>';
+// print_r ($allElems);
+// print '<br>';
+// var_dump($allElems);
+// print '<br>';
+// print $allElems[0];
+// print '<br>';
+
 // print the list of elements but go directly to their page for edits, not add_element
-foreach($allElems as $eNum => $eText) {
+//Uh, oh, this is all wrong need to go to the right page.
+//foreach($allElems as $eNum => $eText) {
+$elIndex = 0; // set this up as the element index number
+foreach ($sxe->step[$snum -1]->stepElems[0]->children() as $selm) {
+	//Pass the name of the element handler to gotoElement
+	// 	print 'name is ' . $selm->getName() . '<br>';
+	// 	print ' value is ' . $selm . '<br>';
+	//    $elemName = $selm->getName();
+    $elemName = $selm->type[0];
+    $eltext = $selm->text[0];
+	//print 'index is '. $eNum . ' value is ' . $eText . '<br>';
+	switch ($elemName) {
+				case "Picture or Video":
+					$elHandle = "image_element.php";
+					break;
+				case "text":
+					$elHandle = "text_element.php";
+					break;
+				case "Ask for Input":
+					$elHandle = "askInput_element.php";
+					break;										
+				default:
+					//print 'This part not done yet';
+					$elHandle = "Error";
+				}
 	print '<div class="row">
-		<div class="col-xs-4">';
-	print '<button class="btn-info" onclick="setAndGo(\'' . $eNum . '\',\''. $eText . '\')">' . $eText . '</button><br>';
+			<div class="col-xs-4">';
+	print '<button class="btn-info" onclick="gotoElement(\'' . $elIndex . '\',\''. $elHandle . '\')">' . $elemName . '</button><br>';
 	print '</div>';
 	print '<div class="col-xs-6">';
 	// in the future we will put an image, variable name or part of the text by each element
 	// depending on the type of element
- 	print  "";       
+	print $eltext . '   ';
+	//print '<br>';
+	if ($selm->place[0] == "no") {
+	// logic determins if I need an image or video control
+	// checks the last 4 characters to see if it is a video file
+	// this uses the bootstrap image control to keep things neet
+		if (substr_compare($eltext,".mp4",-4,4,TRUE) == 0) {
+			print '<video width="93" height="70">
+  						<source src="images/'. $eltext . '" type="video/mp4">
+ 						 Your browser does not support the video tag.
+					</video>';
+			// print '<br>';		
+		} else {
+			print '<img src="images/'. $eltext . '" class="img-thumbnail" alt="Picture missing" style="width:auto;height:70px;">';
+			// print '<br>';
+		} 
+	
+	} else if ($selm->place[0] == "yes") {
+	print ' (Placeholder Text)';
+	} else {
+	
+	}
+	
+ 	//print  "";       
  	print '</div>';
 	print '</div>';
 	print '<br>';
+	$elIndex = $elIndex + 1; // index of elements
 }
 
 include 'templates/footer.html'; // Include the footer.

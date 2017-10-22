@@ -1,0 +1,60 @@
+<!-- Add the PHP logic to determine what is shown and print the html below -->
+<h3> Edit your placeholder or replace it with a picture or video. </h3>
+<div class="row">
+	<div class="col-xs-8">
+	<p>Edit your placeholder if you want a different picture or image here but are not ready to replace it.  If you
+	are ready, upload your image.</p>
+	</div>
+</div>
+<!--  Get a text place holder or let the user upload the image -->
+<script>
+ // when the placeholder button is clicked, the form shows and upload goes away.
+$(document).ready(function(){
+	$("#imUpload").hide(); // hide form for placeholder text when loading
+	$("#imButton").click(function(){ //hide all and show upload form
+		$("#psForm").fadeOut();
+		$("#imUpButtonDiv").fadeOut();
+		$("#imUpload").fadeIn("slow");
+	});
+});
+</script>
+<br>
+<div id="psForm" class="row" >
+	<div class="col-xs-4">
+		<form action="image_element.php" method="post" onsubmit="return validateForm()" id="phForm" name ="phName">
+			<div class="form-group">
+			  <label for="idname">Placeholder Text:</label>
+			  <!-- create an input type with value filled in with existing placeholder -->
+			  <?php
+			  Print INPUT_1;
+			  ?>
+			  <!-- <input type="text" class="form-control" id="idname" value="" name="phTest">  -->
+			  <br>
+			  <input type="submit" value="Submit">
+			</div>
+  		</form>
+	</div> 
+	<div class="col-xs-6">
+	</div>
+</div>
+<br>
+<div id="imUpButtonDiv" class="row" >
+	<div class="col-xs-4">
+		<button id="imButton" class="btn-info">Upload a Picture or Video</button>	
+	</div> 
+	<div class="col-xs-6">
+		<p>If your image is ready, upload it now.</p>
+	</div>
+</div>
+<br>
+<div id="imUpload" class="row" >
+	<div class="col-xs-4">
+		<form action="image_element.php" method="post" enctype="multipart/form-data">
+			Select image to upload:
+			<input type="file" name="fileToUpload" id="fileToUpload">
+			<br>
+			<input type="submit" value="Upload Image" name="submit">
+		</form>
+	</div> 
+</div>
+<br>

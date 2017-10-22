@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wizard>
+  <step>
+    <title>Intro to wizard one -- ed</title>
+    <instruct>Now you know.</instruct>
+    <stepElems>
+      <image type="placeholder">First image for step 1</image>
+      <image type="xxxxx">Second image placeholder</image>
+    </stepElems>
+  </step>
+</wizard>

@@ -60,12 +60,14 @@ foreach ($xml-> children() as $wizard) {
 	// For each button and descrition, create a bootstrap row with two columns
 	print '<div class="row">
 		<div class="col-xs-4">';
-	print "<button class='btn-info' onclick=setAndGo('" . $name . "','" . $file . "')>" . $name . "</button>";
+	print '<button class="btn-info" onclick="setAndGo(\'' . $name . '\',\'' . $file . '\')">' . $name . '</button>';
+	// print "<button class='btn-info' onclick='setAndGo('" . $name . "','" . $file . "')'>" . $name . "</button>";
+	// print "<button class='btn-info' onclick=setAndGo('" . $name . "','" . $file . "')>" . $name . "</button>";
 	print '</div>';
 	print '<div class="col-xs-6">';
  	print  $desc;
  	print '</div>';
-	print '</div>';
+    print '</div>';
 	print '<br>';
 		    
 }

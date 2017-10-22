@@ -1,0 +1,78 @@
+<script>
+function setAndGo(file) {
+    // document.cookie = "c_name=" + name;
+//     document.cookie = "c_file=" + file;
+    window.location.assign("http://betterstuffbetterlife.com/pttrot/WizardMakerApp/" + file);
+}
+/* 
+function getImage(file) {
+    // may only work on ios 6
+	<input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
+}
+ */
+ // when the placeholder button is clicked, the form shows and upload goes away.
+$(document).ready(function(){
+	$("#psForm").hide(); // hide form for placeholder text when loading
+    $("#dhide").click(function(){
+        $("#imUpload").fadeOut();
+        $("#plButton").fadeOut();
+        $("#psForm").fadeIn("slow");
+    });
+    $("#show").click(function(){
+        $("p").show();
+    });
+});
+</script>
+<!-- Add the PHP logic to determine what is shown and print the html below -->
+<h3> Set a placeholder or upload a picture or video. </h3>
+<div class="row">
+	<div class="col-xs-8">
+	<p>It is best to take pictures and video separately, move them to your computer, edit them and reduce their file size to the
+	smallest possible that still looks good. So if you are not ready to upload them, set a placeholder and upload them later.
+	Select Help for guidance on how to process your pictures and video.</p>
+	</div>
+</div>
+<!--  Get a text place holder or let the user upload the image -->
+<div id="plButton" class="row">
+	<div class="col-xs-4">
+		<button id="dhide" class="btn-info")">Set a placeholder</button>
+		<!-- <button id="hide" class="btn-info" onclick="setAndGo('text_element.php')">Set a placeholder</button> -->
+	</div> 
+	<div class="col-xs-6">
+		<p> If you are not ready to upload an image, set placeholder text here to remind you of what you need. 
+		     Later, return to this element and upload the image.</p>
+		<!-- old text to get image from device
+			<form action="storeImage.php" method="post">
+				 Select image to capture:<br> 
+				<input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput"><br>
+				<input type="submit" value="Upload Picture" name="submit">
+		   </form>
+ -->
+		<!-- <button class="btn-info" onclick="setAndGo('text_element.php')">Capture the Image</button> -->
+		<!-- <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput"> -->
+	</div> 
+	
+</div>
+<br>
+<div id="psForm" class="row" >
+	<div class="col-xs-4">
+		<form action="image_element.php" method="post" id="phForm">
+			<div class="form-group">
+			  <label for="idname">Placeholder Text:</label>
+			  <input type="text" class="form-control" id="idname" value="" name="phTest"> 
+			</div>
+  		</form>
+	</div> 
+	<div class="col-xs-6">
+	</div>
+</div>
+<br>
+<div id="imUpload" class="row" >
+	<div class="col-xs-4">
+		<button class="btn-info" onclick="setAndGo(\'image_element.php\')">Upload a Picture or Video</button>
+	</div> 
+	<div class="col-xs-6">
+		<p>If your image is ready, upload it now. If a placeholder has been set, it will be replaced with the image.</p>
+	</div>
+</div>
+<br>
