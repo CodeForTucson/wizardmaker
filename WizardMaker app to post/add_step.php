@@ -167,7 +167,7 @@ foreach ($sxe->step[$snum -1]->stepElems[0]->children() as $selm) {
 				case "Picture or Video":
 					$elHandle = "image_element.php";
 					break;
-				case "text":
+				case "Text":
 					$elHandle = "text_element.php";
 					break;
 				case "Ask for Input":
@@ -184,7 +184,12 @@ foreach ($sxe->step[$snum -1]->stepElems[0]->children() as $selm) {
 	print '<div class="col-xs-6">';
 	// in the future we will put an image, variable name or part of the text by each element
 	// depending on the type of element
-	print $eltext . '   ';
+	if ($elemName == "Text") {
+		print substr($eltext,0,20) . "...";  
+	} else {
+		print $eltext . '   ';
+	}
+	
 	//print '<br>';
 	if ($selm->place[0] == "no") {
 	// logic determins if I need an image or video control
@@ -202,9 +207,9 @@ foreach ($sxe->step[$snum -1]->stepElems[0]->children() as $selm) {
 		} 
 	
 	} else if ($selm->place[0] == "yes") {
-	print ' (Placeholder Text)';
-	} else {
-	
+		print ' (Placeholder Text)';
+	} else  {
+		
 	}
 	
  	//print  "";       

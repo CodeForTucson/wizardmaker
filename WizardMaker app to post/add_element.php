@@ -1,6 +1,5 @@
 <?php
-/* This page creates a new element.  
-It uses templates to create the layout. */
+// This page creates a new element. 10-16-17 9:14 
 // set the title
 define('WIZTITLE', 'Element');
 // set the four buttons left to right Edit/back nav, Settings, Preview, Done/plus sign
@@ -23,9 +22,11 @@ include 'templates/header_plus.html';
 <!-- leave php to add javascript for setting cookies, the  go to wiz_step -->
 <script>
 function setAndGo(file) {
-    // document.cookie = "c_name=" + name;
-//     document.cookie = "c_file=" + file;
+	document.cookie = "subBy=" + "add";  // sets the cookie subBy to add because you are always
+										// creating a new element if you are here
     window.location.assign("http://betterstuffbetterlife.com/pttrot/WizardMakerApp/" + file);
+//below just as a test -- then restore line above
+//    window.location.assign("testFixture.php");
 }
 </script>
 
@@ -33,31 +34,33 @@ function setAndGo(file) {
 <!--  create a row for each type of element and add a description -->
 <div class="row">
 	<div class="col-xs-4">
-		<button class="btn-info" onclick="setAndGo(\'text_element.php\')">Text</button>
+		<button class="btn-info" onclick="setAndGo('text_element.php')">Text</button>
 	</div> 
 	<div class="col-xs-6">
 		<p> Add a block of text. This may include calculations based on 
 		information you get from the user by using Ask for Input.</p>
 	</div>
 </div>
+<br>
 <div class="row">
 	<div class="col-xs-4">
-		<button class="btn-info" onclick="setAndGo(\'image_element.php\')">Picture or Video</button>
+		<button class="btn-info" onclick="setAndGo('image_element.php')">Picture or Video</button>
 	</div> 
 	<div class="col-xs-6">
 		<p>Add a picture or video clip.  You can take it from this device if it has a camera
 		or upload it from your computer. </p>
 	</div>
 </div>
+<br>
 <div class="row">
 	<div class="col-xs-4">
-		<button class="btn-info" onclick="setAndGo(\'askInput_element.php\')">Ask for Input</button>
+		<button class="btn-info" onclick="setAndGo('askInput_element.php')">Ask for Input</button>
 	</div> 
 	<div class="col-xs-6">
 		<p>Ask your user for a number that can be used with text to show calculations.</p>
 	</div>
 </div>
-		
+<br>		
 <?php
 // footer commands and material
 include 'templates/footer.html'; // Include the footer.
