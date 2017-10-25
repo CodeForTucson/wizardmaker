@@ -1,6 +1,5 @@
 <?php
 /* This is the home page for this site.
-9-20-17 
 Just learning about Github so I will commit some minor change and see how it goes
 It uses templates to create the layout. */
 // set the title

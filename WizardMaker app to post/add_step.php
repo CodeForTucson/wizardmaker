@@ -171,6 +171,7 @@ foreach ($sxe->step[$snum -1]->stepElems[0]->children() as $selm) {
 					$elHandle = "text_element.php";
 					break;
 				case "Ask for Input":
+					$elabel = $selm->label[0];
 					$elHandle = "askInput_element.php";
 					break;										
 				default:
@@ -185,9 +186,11 @@ foreach ($sxe->step[$snum -1]->stepElems[0]->children() as $selm) {
 	// in the future we will put an image, variable name or part of the text by each element
 	// depending on the type of element
 	if ($elemName == "Text") {
-		print substr($eltext,0,20) . "...";  
-	} else {
-		print $eltext . '   ';
+		print substr($eltext,0,25) . "...";  
+	} 
+	
+	if ($elemName == "Ask for Input") { 
+		print $elabel . ',  Name of input is: ' . $eltext;
 	}
 	
 	//print '<br>';
@@ -195,6 +198,8 @@ foreach ($sxe->step[$snum -1]->stepElems[0]->children() as $selm) {
 	// logic determins if I need an image or video control
 	// checks the last 4 characters to see if it is a video file
 	// this uses the bootstrap image control to keep things neet
+	print $eltext . '   ';
+	print '<br>';
 		if (substr_compare($eltext,".mp4",-4,4,TRUE) == 0) {
 			print '<video width="93" height="70">
   						<source src="images/'. $eltext . '" type="video/mp4">
