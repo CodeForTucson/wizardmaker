@@ -1,8 +1,16 @@
 <?php
-// just to test xml,  then discard 
-// pass in the index of the step, index of the element and file name
-//and get attribute and
-// name of the element and value as an array
+include('evalmath.class.php');
+$m = new EvalMath;
+// basic evaluation:
+$result = $m->evaluate('2+2');
+ print 'Test of new evalmath functon <br>';
+ print "result = " .$result;   
+    
+/*
+just to test xml,  then discard 
+pass in the index of the step, index of the element and file name
+and get attribute and
+name of the element and value as an array
 $wfile = $_COOKIE['c_file']; // the wizard file is kept as a cookie
 $sIndex = $_COOKIE['c_snum'] -1;  // step number minnus 1 is the xml index
 $enum = $_COOKIE['c_sele'];  // element number
@@ -29,4 +37,5 @@ print '<br>';
 $temElems[2]->text = "now here are some good words";
 print 'new text = ' . $temElems[2]->text;
 print '<br>';
+*/
 ?>

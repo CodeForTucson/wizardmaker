@@ -1,0 +1,45 @@
+
+</div>
+<!-- 		Here are the page help and chat buttons using the bootstrap model -->
+		<div class="col-sm-2">
+			<!-- 
+			<a name="explain" data-toggle="modal" href="#expModal" >
+				<img class="img-responsive" alt="Explain page" src="images/ExplainPage_sm_100x127.png"/>
+			</a>	
+			<a name="helpImage" data-toggle="modal" href="#helpModal" >
+				<img class="img-responsive" alt="Helpful People" src="images/gethelp_sm_100x127.png"/>
+			</a>	
+ 			-->
+		</div>
+	</div>
+	<!-- Bottom previous and next buttons -->
+	<div class="row">
+        <div class="col-sm-12">
+			<ul class="pager">
+			  <!-- <li class="previous"><a href="Preview.php/?eFrom=cydown">Previous</a></li> -->
+			  <?php
+			  		if (defined('STEPPREV')) {
+						print STEPPREV;
+					} else {
+						print 'Title not defined';
+					}
+					// if (defined('STEPEXIT')) {
+// 						print STEPEXIT;
+// 					} else {
+// 						print 'Title not defined';
+// 					}
+					if (defined('STEPNEXT')) {
+						print STEPNEXT;
+					} else {
+						print 'Title not defined';
+					}
+				?>
+			 <!--  <li class="exit"><a href="#">Exit</a></li> -->
+			  <!-- <li class="next"><a href="Preview.php/?eFrom=cyup">Next</a></li> -->
+			</ul>
+		</div>
+	</div>
+	
+</div>
+</body>
+</html>

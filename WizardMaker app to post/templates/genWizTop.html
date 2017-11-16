@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wizard</title>	
+	 <!--
+	 following 5 lines added for Boodstrap framework, see W3schools section 
+	 But I add my own stylesheet to overwrite the bootstrap one when needed
+	 --> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- script for the widgEditor -->
+    <script type="text/javascript" src="scripts/widgEditor.js"></script>
+    <link rel="stylesheet" href="css/widgEditor.css" />
+    <link rel="stylesheet" href="css/WizApp.css" />	
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12">
+			<!-- Enter title and instructions -->
+			<h1>
+			<?php
+			if (defined('WIZTITLE')) {
+				print WIZTITLE;
+			} else {
+				print 'Title not defined';
+			}
+			?>
+			</h1>
+			<h2>
+			<?php
+			if (defined('STEPTITLE')) {
+				print STEPTITLE;
+			} else {
+				print 'Title not defined';
+			}
+			?>
+			</h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<p>
+			<?php
+			if (defined('SINSTRUCT')) {
+				print SINSTRUCT;
+			} else {
+				print 'Title not defined';
+			}
+			?>
+			</p>
+		</div>
+	</div>
+	<!-- Here is the horizontal form - complex due to Bootstrap conventions -->
+	<div class="row">
+		<div class="col-sm-10">
+

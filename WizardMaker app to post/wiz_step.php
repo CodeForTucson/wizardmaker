@@ -1,6 +1,6 @@
 <?php
 /* This page lists the steps of the wizard plus the title and instructions.
-8-27-17 
+11-10--17 
 todo:
 X Keep track of the step number as well 
 - Issue, when + hit does not increment step number so redo it to use setandgo and up the cookie
@@ -19,7 +19,7 @@ define('BUTTON_2', '<a href="" class="btn btn-primary" role="button">
 define('BUTTON_3', '<a href="" class="btn btn-primary" role="button">
          			Edit
          			</a>');
-define('BUTTON_4', '<a href="" class="btn btn-primary" role="button">
+define('BUTTON_4', '<a href="Preview.php?wFrom=allsteps" class="btn btn-primary" role="button" target="_blank">
          			Preview
          			</a>');
 define('BUTTON_5', '<a href="" class="btn btn-primary" role="button">

@@ -1,5 +1,9 @@
 <?php
-/* This is the text element page 10-19-17
+/*
+This program uses opensource code under GNU General Public License.  See the file beolw for more information.
+      File: widgEdit.js
+      Created by: Cameron Adams (http://www.themaninblue.com/)
+      Created on: 2005-01-16
 It uses templates to create the layout. */
 // set the title
 define('WIZTITLE', 'Add or Edit Text');
@@ -36,8 +40,9 @@ if ($_COOKIE['subBy'] == "add") {
 		
 	  print '<div class="row">
 				<div class="col-xs-6">
-					<p> Enter more detailed instructions for your step.  To perform a calculation enter "Calculate(inputNumber1 operator inputNumber2)" but you 
-					should have already created the input numbers by creating Ask for Input elements.</p>
+					<p> Enter more detailed instructions for your step.  To perform a calculation bracket the equation with "cal#" at the front and "#" at the end. 
+						For example, if you named a user input "Width" using Ask for Input you could create cal#(Width/2)+2# to divide it in half and add 2.
+						and add 2 to it.</p>
 					<form action="text_element.php" method="post">
 						<fieldset>
 							<label for="noise">Enter text here:</label>
@@ -82,8 +87,9 @@ if ($_COOKIE['subBy'] == "add") {
 // 		print '<br>';
 		  print '<div class="row">
 					<div class="col-xs-6">
-						<p> Edit these instructions for your step.  To perform a calculation enter "Calculate(inputNumber1 operator inputNumber2)" but you 
-						should have already created the input numbers by creating Ask for Input elements.</p>
+						<p> Enter more detailed instructions for your step.  To perform a calculation bracket the equation with "cal#" at the front and "#" at the end. 
+						For example, if you named a user input "Width" using Ask for Input you could create cal#(Width/2)+2# to divide it in half and add 2.
+						and add 2 to it.</p>
 						<form action="text_element.php" method="post">
 							<fieldset>
 								<label for="noise">Enter text here:</label>

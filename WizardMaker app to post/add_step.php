@@ -1,5 +1,5 @@
 <?php
-/* This page creates a new step and lists all elements. 10-16-17 9:14
+/* This page creates a new step and lists all elements. 11-10
   You can enter an title and instructions for the step and edit them later.
 */
 // read the cookies
@@ -16,8 +16,12 @@ define('BUTTON_1', '<button class="btn btn-primary"
 define('BUTTON_2', '<a href="" class="btn btn-primary" role="button">
          			Help
          			</a>');
-define('BUTTON_3', '');
-define('BUTTON_4', '');
+define('BUTTON_3', '<a href="" class="btn btn-primary" role="button">
+         			Edit
+         			</a>');
+define('BUTTON_4', '<a href="Preview.php?wFrom=onestep" class="btn btn-primary" role="button" target="_blank">
+         			Preview
+         			</a>');
 define('BUTTON_5', '');
 define('BUTTON_6', '');
 define('BUTTON_7', '<button  class="btn btn-primary"  
@@ -186,36 +190,41 @@ foreach ($sxe->step[$snum -1]->stepElems[0]->children() as $selm) {
 	// in the future we will put an image, variable name or part of the text by each element
 	// depending on the type of element
 	if ($elemName == "Text") {
-		print substr($eltext,0,25) . "...";  
+		print strip_tags(substr($eltext,0,25) . "...");  // clean out special characters
 	} 
 	
 	if ($elemName == "Ask for Input") { 
 		print $elabel . ',  Name of input is: ' . $eltext;
 	}
 	
-	//print '<br>';
-	if ($selm->place[0] == "no") {
-	// logic determins if I need an image or video control
-	// checks the last 4 characters to see if it is a video file
-	// this uses the bootstrap image control to keep things neet
-	print $eltext . '   ';
-	print '<br>';
-		if (substr_compare($eltext,".mp4",-4,4,TRUE) == 0) {
-			print '<video width="93" height="70">
-  						<source src="images/'. $eltext . '" type="video/mp4">
- 						 Your browser does not support the video tag.
-					</video>';
-			// print '<br>';		
-		} else {
-			print '<img src="images/'. $eltext . '" class="img-thumbnail" alt="Picture missing" style="width:auto;height:70px;">';
-			// print '<br>';
-		} 
+	if ($elemName == "Picture or Video") { 
+		if ($selm->place[0] == "no") {
+			// logic determins if I need an image or video control
+			// checks the last 4 characters to see if it is a video file
+			// this uses the bootstrap image control to keep things neet
+			print $eltext . '   ';
+				if (substr_compare($eltext,".mp4",-4,4,TRUE) == 0) {
+					print '<br>';
+					print '<video width="93" height="70">
+								<source src="images/'. $eltext . '" type="video/mp4">
+								 Your browser does not support the video tag.
+							</video>';
+					// print '<br>';		
+				} else {
+					print '<br>';
+					print '<img src="images/'. $eltext . '" class="img-thumbnail" alt="Picture missing" style="width:auto;height:70px;">';
+					// print '<br>';
+				} 
 	
-	} else if ($selm->place[0] == "yes") {
-		print ' (Placeholder Text)';
-	} else  {
+		} else if ($selm->place[0] == "yes") {
+			print $eltext . '   ';
+			print ' (Placeholder Text)';
+		} else  {
 		
+		}	
+			
 	}
+	
 	
  	//print  "";       
  	print '</div>';
