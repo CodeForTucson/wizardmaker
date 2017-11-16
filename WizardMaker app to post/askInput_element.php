@@ -40,7 +40,8 @@ if ($_COOKIE['subBy'] == "add") {
 					<p> When you use the Calculate feature of Text elements, the wizard performs a calculation based 
 					on a number that the user has already given the wizard. We don\'t know what that number will be so
 					we have to give it a name to refer to it when it comes.  That is the name you will enter here.
-					Just make up a word with no spaces and no funny characters. For more information select Help.</p>
+					Just make up a word that starts with a letter and is composed of only letters and numbers (no dashes, underlines, etc.).
+					For more information select Help.</p>
 					<form action="askInput_element.php" method="post">
 						Label for the input box:<br>
 						<input type="text" name="askLabel" value="'. $wizInLabel . '">
@@ -83,7 +84,9 @@ if ($_COOKIE['subBy'] == "add") {
 // 		print '<br>';
 		  print '<div class="row">
 					<div class="col-xs-6">
-						<p> Edit the name that will refer to the number the user provides to the wizard.</p>
+						<p> Edit the name that will refer to the number the user provides to the wizard.
+						Be sure the word that starts with a letter and is composed of only letters and numbers (no dashes, underlines, etc.).
+						For more information select Help.</p>
 						<form action="askInput_element.php" method="post">
 							Label for the input box:<br>
 							<input type="text" name="askLabel" value="'. $wizInLabel . '">

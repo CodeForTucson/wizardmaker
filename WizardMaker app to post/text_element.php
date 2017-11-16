@@ -21,7 +21,7 @@ define('BUTTON_7', '<a href="add_step.php" class="btn btn-primary" role="button"
     				</a>');
 // Include the header:
 include 'templates/header_plus.html';
-//check to see if GET data received, if so set cookies and go to wiz_step.php
+//check to see if POST data received, if so set cookies and go to wiz_step.php
 if ($_COOKIE['subBy'] == "add") {
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
 		if (isset($_POST['noise'])) { // store place holder here
@@ -54,11 +54,36 @@ if ($_COOKIE['subBy'] == "add") {
 							<input type="submit" value="Submit" />
 						</fieldset>
 					</form>
+					<br>
 				</div> 
 				<div class="col-xs-6">
 		
 				</div>
 			</div>';
+			// get and list all variables in the wizard so far
+			// load the wizard file
+			$xmlv=simplexml_load_file($_COOKIE['c_file']) or die("Error: Cannot create object");
+			// need xpath to find all the variables in the wizard
+			$wizVars = $xmlv->xpath('/wizard/step/stepElems/sElem[type = "Ask for Input"]/text');
+			$wizLabls = $xmlv->xpath('/wizard/step/stepElems/sElem[type = "Ask for Input"]/label');
+			
+			if ($wizLabls[0] != "") {
+				print '<div class="row">
+						<div class="col-xs-6">
+							<p> Here are all the labels the input boxes you created (using the Ask for Input element) followed by the name
+							of the number you are collecting from the user.  If you are adding calculations, use these names (in bold) in the calculations
+							you enter into the text above.</p>';
+				for ($vCnt = 0; $vCnt < count($wizVars); $vCnt++) {
+					print $wizLabls[$vCnt] . '   <b>' . $wizVars[$vCnt] . '</b> <br>';
+			
+				}
+				print '</div> 
+								<div class="col-xs-6">
+
+								</div>
+						</div>';
+			}
+				
 	}
 } else {  //must be edit
 // 	print 'got to the edit section';
@@ -87,7 +112,7 @@ if ($_COOKIE['subBy'] == "add") {
 // 		print '<br>';
 		  print '<div class="row">
 					<div class="col-xs-6">
-						<p> Enter more detailed instructions for your step.  To perform a calculation bracket the equation with "cal#" at the front and "#" at the end. 
+						<p> Edit the instructions for your step.  To perform a calculation bracket the equation with "cal#" at the front and "#" at the end. 
 						For example, if you named a user input "Width" using Ask for Input you could create cal#(Width/2)+2# to divide it in half and add 2.
 						and add 2 to it.</p>
 						<form action="text_element.php" method="post">
@@ -101,11 +126,37 @@ if ($_COOKIE['subBy'] == "add") {
 								<input type="submit" value="Submit" />
 							</fieldset>
 						</form>
+						<br>
 					</div> 
 					<div class="col-xs-6">
 
 					</div>
 				</div>';
+			// get and list all variables in the wizard so far
+			// load the wizard file
+			$xmlv=simplexml_load_file($_COOKIE['c_file']) or die("Error: Cannot create object");
+			// need xpath to find all the variables in the wizard
+			$wizVars = $xmlv->xpath('/wizard/step/stepElems/sElem[type = "Ask for Input"]/text');
+			$wizLabls = $xmlv->xpath('/wizard/step/stepElems/sElem[type = "Ask for Input"]/label');
+			
+			if ($wizLabls[0] != "") {
+				print '<div class="row">
+						<div class="col-xs-6">
+							<p> Here are all the labels the input boxes you created (using the Ask for Input element) followed by the name
+							of the number you are collecting from the user.  If you are adding calculations, use these names (in bold) in the calculations
+							you enter into the text above.</p>';
+				for ($vCnt = 0; $vCnt < count($wizVars); $vCnt++) {
+					print $wizLabls[$vCnt] . '   <b>' . $wizVars[$vCnt] . '</b> <br>';
+			
+				}
+				print '</div> 
+								<div class="col-xs-6">
+
+								</div>
+						</div>';
+			}
+
+				
 	}
 }
 function storeData($elType,$place, $value,$addrep) {
@@ -155,7 +206,7 @@ function getStepElement() {
 	//append the object
 	$sxe1 = simplexml_import_dom($doc1); // convert to simpleXML object
 	// Get the right piece of info -- name or description
-	// will try to get the data by using the childres functoin reading into an array
+	// will try to get the data by using the childres function reading into an array
 	
 	// print "from getstepElement -- enum is  " . $enum;
 // 	print '<br>';
