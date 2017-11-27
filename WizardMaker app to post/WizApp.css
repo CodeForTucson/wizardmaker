@@ -1,0 +1,20 @@
+/*
+CSS used to customize the wizard app creation code
+*/
+.btn-info {
+	width: 100%;
+	text-align: left;
+	}
+	
+#wedit {
+	width: 35px;
+	height: 20px;
+	}
+	
+img {
+    width:300px; you can use %    height: auto;
+}
+/* this is needed to provide a finger cursor over the buttons used to move and delete elements  */
+.movdel-button {
+cursor: pointer;
+}
