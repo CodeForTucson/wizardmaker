@@ -106,10 +106,12 @@ if ($_COOKIE['subBy'] == "add") {
 									  <label for="idname">Placeholder Text:</label>
 									  <input type="text" class="form-control" id="idname" value="' . $defValue . '" name="phTest">
 									  <br>
-									  <input type="submit" value="Submit">
+									  <button type="submit" class="btn btn-primary">Submit</button>
 									</div>
 								</form>');
-			include 'templates/Image_Edit.html';	
+			include 'templates/Image_Edit.html';
+			// replaced this <input id="wSubmit" type="submit" value="Submit">
+				
 		} else {
 			// define a line telling the user what file is uploaded and then include the html.
 			$defValue = $elchildren[$enum2]->text;

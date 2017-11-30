@@ -156,7 +156,7 @@ $subIndex = 0;  // used for move and delete
 foreach ($xml-> children() as $step) {
  // foreach ($xml->step[$scount]->element as $elem) 
 	$stitle = $step->title;
-	$instruct = $step->instruct;
+	//$instruct = $step->instruct;
 //	$location = "wiz_step.php";
 	$scount ++; // incrment step number
 	$listing = "Step " . $scount . ": " . $stitle;
@@ -169,7 +169,7 @@ foreach ($xml-> children() as $step) {
 	print '<button class="btn-info get_label" onclick="setAndGo(\'' . $stitle .'\',\'' . $wfile . '\',\'' . $scount . '\')">' . $listing . '</button><br>'; 
 	print '</div>';
 	print '<div class="col-xs-6">';
- 	print  $instruct;
+ 	//print  $instruct;
  	print '</div>';
 	print '</div>';
 	print '<br>';

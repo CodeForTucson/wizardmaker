@@ -54,16 +54,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$placeName = "";
 		$placeDesc = "";
 	}
-	print '<form action="settings.php" method="post" id="settingsForm">
-				<div class="form-group">
-				  <label for="idname">Name:</label>
-				  <input type="text" class="form-control" id="idname" value="' . $placeName . '" name="wname">
-				</div>
-				<div class="form-group">
-				  <label for="iddes">Description:</label>
-				  <input type="text" class="form-control" id="iddes" value="' . $placeDesc . '" name="wdesc">
-				</div>
-  			</form>';
+	print '<div class="row">
+			<div class="col-xs-6">
+				<form action="settings.php" method="post" id="settingsForm">
+					<div class="form-group">
+					  <label for="idname">Name:</label>
+					  <input type="text" class="form-control" id="idname" value="' . $placeName . '" name="wname">
+					</div>
+					<div class="form-group">
+					  <label for="iddes">Description:</label>
+					  <input type="text" class="form-control" id="iddes" value="' . $placeDesc . '" name="wdesc">
+					</div>
+				</form>
+  			</div>';
 }
 function wizFiles($name,$desc,$index) {
 	// create a file name from the wizard name -- put it in directory wizards

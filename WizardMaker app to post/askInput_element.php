@@ -51,9 +51,11 @@ if ($_COOKIE['subBy'] == "add") {
 					   <input type="text" name="askInput" value="' . $wizText . '">
 					   <br>
 					   <br>
-					   <input type="submit" value="Submit">
+					   
+					   <button type="submit" class="btn btn-primary">Submit</button>
 					</form>
 			     </div>';
+			     // replaced above. <input type="submit" value="Submit">
 	}
 } else {  //must be edit
 // 	print 'got to the edit section';
@@ -95,10 +97,11 @@ if ($_COOKIE['subBy'] == "add") {
 							<input type="text" name="askInput" value="' . $wizText . '">
 							<br>
 							<br>
-							<input type="submit" value="Submit">
+							<button type="submit" class="btn btn-primary ">Submit</button>
 						</form>
 					</div> 
 				</div>';
+				// repaced above <input type="submit" value="Submit">
 	}
 }
 function storeData($elType,$wLabel,$value,$addrep) {

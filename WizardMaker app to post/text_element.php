@@ -21,7 +21,7 @@ define('BUTTON_7', '<a href="add_step.php" class="btn btn-primary" role="button"
     				</a>');
 // Include the header:
 include 'templates/header_plus.html';
-//check to see if POST data received, if so set cookies and go to wiz_step.php
+//check to see if POST data received
 if ($_COOKIE['subBy'] == "add") {
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
 		if (isset($_POST['noise'])) { // store place holder here
@@ -40,7 +40,7 @@ if ($_COOKIE['subBy'] == "add") {
 		
 	  print '<div class="row">
 				<div class="col-xs-6">
-					<p> Enter more detailed instructions for your step.  To perform a calculation bracket the equation with "cal#" at the front and "#" at the end. 
+					<p> Enter instructions for your step.  To perform a calculation bracket the equation with "cal#" at the front and "#" at the end. 
 						For example, if you named a user input "Width" using Ask for Input you could create cal#(Width/2)+2# to divide it in half and add 2.
 						and add 2 to it.</p>
 					<form action="text_element.php" method="post">
@@ -51,15 +51,15 @@ if ($_COOKIE['subBy'] == "add") {
 							'</textarea>
 						</fieldset>
 						<fieldset class="submit">
-							<input type="submit" value="Submit" />
+							<button type="submit" class="btn btn-primary">Submit</button>
 						</fieldset>
 					</form>
 					<br>
 				</div> 
 				<div class="col-xs-6">
-		
 				</div>
 			</div>';
+			// replaced above. <input type="submit" value="Submit" />
 			// get and list all variables in the wizard so far
 			// load the wizard file
 			$xmlv=simplexml_load_file($_COOKIE['c_file']) or die("Error: Cannot create object");
@@ -123,15 +123,16 @@ if ($_COOKIE['subBy'] == "add") {
 								'</textarea>
 							</fieldset>
 							<fieldset class="submit">
-								<input type="submit" value="Submit" />
+								<button type="submit" class="btn btn-primary">Submit</button>
+								
 							</fieldset>
 						</form>
 						<br>
 					</div> 
 					<div class="col-xs-6">
-
 					</div>
 				</div>';
+			// replaced above <input type="submit" value="Submit" />
 			// get and list all variables in the wizard so far
 			// load the wizard file
 			$xmlv=simplexml_load_file($_COOKIE['c_file']) or die("Error: Cannot create object");
@@ -170,29 +171,50 @@ function storeData($elType,$place, $value,$addrep) {
 	$doc->formatOutput = true;  // so it will output nicely with indents
 	$doc->load($wfile); // load the wizard xml file
 	//Convert to simplXML object for ease of manipulation
-	$sxe = simplexml_import_dom($doc); 
+	//$sxe = simplexml_import_dom($doc); 
 	// at a new element to the list of elements.
 	if ($addrep == "add") {
+		// use DOM rather than simplexml
+		$selems = $doc->getElementsByTagName("stepElems"); //get the array of element parent node
+		$newsElem = $doc->createElement("sElem");			// create a new wizard element node
+		$selems->item($sIndex)->appendChild($newsElem); //append the wizard element node
+		$newsElem->appendChild($doc->createElement("type",$elType)); //append child with type
+		$newsElem->appendChild($doc->createElement("place",$place)); //append child with placeholder
+		$cdNode = $doc->createElement("text");  // create the text element
+		$newsElem->appendChild($cdNode);  // append it to the elements parent
+		$cd = $doc->createCDATASection($value);  // create CDATA section out of text
+		$cdNode->appendChild($cd);  // append CDATA to the node like it was a textnode.
+		
 		// add a new element as child
-		$sxe->step[$sIndex]->stepElems->addChild("sElem");
-		// I have to find the last child (the one just added) and add more children
-		$imIndex = $sxe->step[$sIndex]->stepElems[0]->count() -1;
-		// store type of element
-		$sxe->step[$sIndex]->stepElems->sElem[$imIndex]->addChild("type",$elType);
-		// store yes or no -- is this a placeholder
-		$sxe->step[$sIndex]->stepElems->sElem[$imIndex]->addChild("place",$place);
-		// store  text Content
-		$sxe->step[$sIndex]->stepElems->sElem[$imIndex]->addChild("text",$value);
+		// $sxe->step[$sIndex]->stepElems->addChild("sElem");
+// 		// I have to find the last child (the one just added) and add more children
+// 		$imIndex = $sxe->step[$sIndex]->stepElems[0]->count() -1;
+// 		// store type of element
+// 		$sxe->step[$sIndex]->stepElems->sElem[$imIndex]->addChild("type",$elType);
+// 		// store yes or no -- is this a placeholder
+// 		$sxe->step[$sIndex]->stepElems->sElem[$imIndex]->addChild("place",$place);
+// 		// store  text Content
+// 		$sxe->step[$sIndex]->stepElems->sElem[$imIndex]->addChild("text",$value);
 	} else {
 		//just replace the edited element's data
-		$temElems = $sxe->step[$sIndex]->stepElems[0]->children(); // get present tit
-		$temElems[$enum3]->type = $elType;
-		$temElems[$enum3]->place = $place;
-		$temElems[$enum3]->text = $value;
+		//$doc->getElementsByTagName("type")->item($enum3)->nodeValue = $elType;
+		//$doc->getElementsByTagName("place")->item($enum3)->nodeValue = $place;
+		// get old text node with CDATA
+		$textold = $doc->getElementsByTagName("text")->item($enum3);
+		//$textrep = $doc->createElement("text");
+		// create new text node and apppend it
+		$textrep = $textold->parentNode->appendChild($doc->createElement('text'));
+		$cdr = $doc->createCDATASection($value);  // create CDATA section out of text
+		$textrep->appendChild($cdr);		// append it to the new text node
+		$textold->parentNode->replaceChild($textrep,$textold);  // replace the old with new
+		// $temElems = $sxe->step[$sIndex]->stepElems[0]->children(); // get present tit
+// 		$temElems[$enum3]->type = $elType;
+// 		$temElems[$enum3]->place = $place;
+// 		$temElems[$enum3]->text = $value;
 	}
 	// now add an attribute to this element.
 	//$sxe->step[$sIndex]->stepElems[0]->image[$imIndex]->addAttribute("sElem");
-	$doc->loadXML($sxe->asXML()); // convert back to DOM document
+	//$doc->loadXML($sxe->asXML()); // convert back to DOM document
 	$doc->save($wfile);
 }
 function getStepElement() {

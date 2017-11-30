@@ -125,14 +125,14 @@ function createPage ($step,$scount,$filename,$from) { // passed GET|POST, step, 
 	// get the steps and the step title
 	$xmlStep=simplexml_load_file($filename) or die("Error: Cannot create object");
 	$sName = $xmlStep->step[$step -1]->title;    // get the name of the step
-	$sInstruct = $xmlStep->step[$step -1]->instruct;    // get the instructions or the step
+	// $sInstruct = $xmlStep->step[$step -1]->instruct;    // get the instructions or the step
 	$sElements = $xmlStep->step[$step -1]->stepElems[0]->children();    // put all elements in an array
 
 	// define the title for the top matter
 	define('WIZTITLE', $wizTitle[0]);  // define wizard title
 	// get data on the appropriate step
 	define('STEPTITLE','Step ' . $step . ': ' . $sName); // defind step title
-	define('SINSTRUCT',$sInstruct);    // define instsructions
+	//define('SINSTRUCT',$sInstruct);    // define instsructions
 	// include top matter                     
 	include 'templates/genWizTop.html';
 	// set the Previous button
@@ -170,7 +170,8 @@ function createPage ($step,$scount,$filename,$from) { // passed GET|POST, step, 
 		if ($wasAsk == "yes" AND $elSwitch != "Ask for Input") {
 			print '<br>
 			  <input type="submit" value="Submit">
-			  </form>';
+			  </form>
+			  <br>';
 			$wasAsk = "no";
 		}
 		switch ($elSwitch) {
@@ -181,15 +182,16 @@ function createPage ($step,$scount,$filename,$from) { // passed GET|POST, step, 
 				if (strpos($texttemp, "cal#", 0) == false) {
 					print "<br>";
 					print $texttemp;  // 1 is true 0 is false -- no calculations so print
-				} else if (addCalcs($texttemp) == "error") {
+				} else if (addCalcs($texttemp) == "error") { // if calculation error -- print nothing
 					print "<br>";
 					print "<br>";
 					break;
 				} else {
 					// transform text to add the calculated numbers
-					//print 'result from addCalcs <br>';
 					print "<br>";
-					print  addCalcs($texttemp);  
+					print  addCalcs($texttemp); 
+					print "<br>";
+					print "<br>";	 
 				}
 				break;
 			case "Ask for Input": // for an element asking for input -- complex we group them - one submit button
@@ -210,8 +212,7 @@ function createPage ($step,$scount,$filename,$from) { // passed GET|POST, step, 
 				}
 			
 				print $inLabel . '<br>
-				  <input type="text" name="' . $inVar . '" value="' . $value .'">
-				  <br>';
+				  <input type="text" pattern="^-?[0-9]\d*(\.\d+)?$" name="' . $inVar . '" value="' . $value .'"> <br>';
 			
 				// cycle and print all input forms
 				// print the submit button 
@@ -223,10 +224,12 @@ function createPage ($step,$scount,$filename,$from) { // passed GET|POST, step, 
 							<source src="images/'. $texttemp . '" type="video/mp4">
 							 Your browser does not support the video tag.
 						</video>';
-			// print '<br>';		
+			   			 print '<br>';
+			   			 print '<br>';		
 				} else {
 					print '<img src="images/'. $texttemp . '" alt="Picture missing" style="width:auto;height:300px;">';
-					// print '<br>';
+				    print '<br>';
+				    print '<br>';
 				} 
 			
 			break;

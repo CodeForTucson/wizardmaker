@@ -155,35 +155,40 @@ $doc->formatOutput = true;  // so it will output nicely with indents
 $doc->load($wfile); // load the wizard xml file
 //append the object
 $sxe = simplexml_import_dom($doc); // convert to simpleXML object
+// clugy CDATA fix to get it to load into simplexml_ from dom and read CDATA
+// $str = $doc->saveXML();
+// $sxe = simplexml_load_string($str, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
+// another cdata fix
+
 // start here -- test to see if this step exists, if so grab data.
 if (isset($sxe->step[$snum - 1])) {  // if this step exists
 $titleValue = $sxe->step[$snum - 1]->title; // get present title of the step
 $instValue = $sxe->step[$snum - 1]->instruct; // get present instructions for step
 } else {
 $titleValue = ''; // blanked these out because when first creating the step was a pain to delete
-$instValue = '';
+$instValue = '';  // instructions
 }
-//Ask user to enter the title of the step and instructions (optional)
-print '<h3> Enter or edit the title and instructions (optional) </h3>';
+//Ask user to enter the title of the step 
+print '<h3> Enter or edit the title of this step </h3>';
 // use the form to  get these data
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	// Handle the form:
 	if (!empty($_POST['stitle'])) {
 		 // Correct! 
 		 	$stitle = $_POST["stitle"]; // get user input
-			$sinstr = $_POST["sinstr"];
-		 	// wizFiles($stitle,$sinstr); //  save the data in xml 
+			//$sinstr = $_POST["sinstr"];
+		 	//wizFiles($stitle); //  save the data in xml 
 		 	//Hmm, check out this -1 business
 		 	if (isset($sxe->step[$snum - 1])) {  // if this step exists
 				// change values of title and instruction
 				$sxe->step[$snum - 1]->title = $stitle;
-				$sxe->step[$snum - 1]->instruct = $sinstr;
+				// $sxe->step[$snum - 1]->instruct = $sinstr;
 		 	} else { // add a new step on the end`
 				$sxe->addChild("step"); // add a new step to the end of all Steps
 				// create an object that is the last instance of Step in the file
 				$lastStep = $sxe->step[$sxe->step->count() - 1];
 				$lastStep->addChild("title", $stitle); // add children to this last step
-				$lastStep->addChild("instruct", $sinstr);
+				//$lastStep->addChild("instruct", $sinstr);
 				$lastStep->addChild("stepElems"); // add location for the elements.		
 			}
 			$doc->loadXML($sxe->asXML()); // convert back to DOM document
@@ -220,19 +225,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		 and try again.</p>';
 	}
 } else { // Display the form.
-	print '<form action="add_step.php" method="post" id="settingsForm">
-				<div class="form-group">
-				  <label for="idname">Title:</label>
-				  <input type="text" class="form-control" id="idname" value="' . $titleValue . '" name="stitle"> 
+	print '<div class="row">
+				<div class="col-xs-6">
+					<form action="add_step.php" method="post" id="settingsForm">
+						<div class="form-group">
+						  <label for="idname">Title:</label>
+						  <input type="text" class="form-control" id="idname" value="' . $titleValue . '" name="stitle"> 
+						</div>
+					</form>
 				</div>
-				<div class="form-group">
-				  <label for="iddes">Instructions:</label>
-				  <input type="text" class="form-control" id="iddes" value="' . $instValue . '"  name="sinstr">
-				</div>
-  			</form>';
+			</div>';
+			
+// taking out instructions
+// 						<div class="form-group">
+// 						  <label for="iddes">Instructions:</label>
+// 						  <input type="text" class="form-control" id="iddes" value="' . $instValue . '"  name="sinstr">
+// 						</div>
+			
+			
 }
 // second set of instructions
-print '<h3> Select an element to edit or select + to add an element </h3>';
+print '<div class="row">
+			<div class="col-xs-12">
+				<h3> Select an element to edit or select + to add an element </h3>
+			</div>
+		</div>';
 
 $elIndex = 0; // set this up as the element index number
 $subIndex = 0;  // used for move and delete

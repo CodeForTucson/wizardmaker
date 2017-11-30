@@ -1,8 +1,54 @@
 /*
-9-1-16
+CSS used to customize the wizard app creation code
 */
 .btn-info {
 	width: 100%;
 	text-align: left;
 	}
+	
+/* 
+#wedit {
+	width: 35px;
+	height: 20px;
+	}
+ */
+	
+img {
+    width:300px; you can use %    height: auto;
+}
+/* used to keep the buttons from going too far left on the iPhone - does not work - */
 
+/* this is needed to provide a finger cursor over the buttons used to move and delete elements  */
+.movdel-button {
+cursor: pointer;
+/* margin-left: 20cm; */
+}
+/* change the submit button on forms */
+/* input[type=submit] { */
+/* 
+#wSubmit {
+    background-color: #1C47FF;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+ */
+/* does not work -- attempt to fix the move/del button issue */
+#edDiv {     
+	margin-left: 20px;
+}
+
+/* 
+.submit {
+    background-color: #1C47FF;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+ */
