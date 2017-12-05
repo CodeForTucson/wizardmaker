@@ -7,7 +7,9 @@ define('WIZTITLE', 'Add or Edit a Request for Input');
 define('BUTTON_1', '<a href="add_step.php" class="btn btn-primary" role="button">
          			<span class="glyphicon glyphicon-chevron-left"></span>The Step
          			</a>');
-define('BUTTON_2', '');
+define('BUTTON_2', '<a href="Help/AskForInput_help.html" class="btn btn-primary" role="button" target="_blank">
+         			Help
+         			</a>');
 define('BUTTON_3', '');
 define('BUTTON_4', '');
 define('BUTTON_5', '');
@@ -52,7 +54,7 @@ if ($_COOKIE['subBy'] == "add") {
 					   <br>
 					   <br>
 					   
-					   <button type="submit" class="btn btn-primary">Submit</button>
+					   <button type="submit" class="btn btn-primary">Save</button>
 					</form>
 			     </div>';
 			     // replaced above. <input type="submit" value="Submit">
@@ -97,7 +99,7 @@ if ($_COOKIE['subBy'] == "add") {
 							<input type="text" name="askInput" value="' . $wizText . '">
 							<br>
 							<br>
-							<button type="submit" class="btn btn-primary ">Submit</button>
+							<button type="submit" class="btn btn-primary ">Save</button>
 						</form>
 					</div> 
 				</div>';

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Text element help</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- script for the widgEditor -->
+    <script type="text/javascript" src="scripts/widgEditor.js"></script>
+    <link rel="stylesheet" href="css/widgEditor.css" />
+    <link rel="stylesheet" href="css/WizApp.css" />	
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12">
+<h1>Help for the Text Element Page</h1>
+<p>
+The purpose of this element is to add some instructions to your step.  
+As you can see from the tool bar you can create bold or italic text, create bulleted or numbered lists 
+or turn text into a hyperlink. 
+You can also add levels of heading with the Change Block Type drop down control. 
+</p>
+<img class="img-responsive" src="Text_help-editBox.png" alt="Settings to of page image" style="width:700px;height:auto;">
+<p>
+Lastly you can add calculations to your text by entering a math expression and entering “cal# befor it and “#” after it.  
+Suppose your wizard tells users how to make a casserole but the user can decide how much to make. 
+You might ask users, using Ask for Input for a number servings they want to cook.  
+When you created that user input element you named the result “numServings” (see <a href="AskForInput_help.html">Ask for Input help</a>).
+Maybe you need 1/2 cup of noodles per serving so when you list the ingredients you might add:.
+</p>
+<p>
+&nbsp;&nbsp;&nbsp; Add cal#numServings * 0.5# cups of noodles
+</p>
+
+<p>
+If the user wants 4 servings then this text will look like “Add 2 cups of noodles” 
+when you look at the wizard in Preview.
+</p>
+<p>
+You can use the following math symbols:
+</p>
+<ul>
+	<li>+ to add </li>
+	<li>- to subtract </li>
+	<li>* to multiply</li>
+	<li>/ to divide</li>
+	<li>^ raise to a power</li>
+</ul>
+<p>
+You can enter a positive or negative number and a fraction (2, -2, -2.5).  
+You can also use parentheses to make more complex expressions. 
+Using our input name above we might create:
+</p>
+<p>
+&nbsp;&nbsp;&nbsp; cal#(numServings * 2) + 1#
+</p>
+<p>
+This would multiply our input by 2 then add 1. But remember you have to ask for the input before using it or the text will not appear. 
+When you create the text, the names of the inputs are listed below as shown in this example.
+</p>
+<img class="img-responsive" src="Text_help-calExample.png" alt="index to of page image" style="width:700px;height:auto;" >
+<p>
+When you look at the Preview, this part of the step will look like this after you enter the numbers
+4 and 5 and select Save
+</p>
+<img class="img-responsive" src="Text_help-previewResult.png" alt="index to of page image" style="width:400px;height:auto;" >
+	</div>
+</div>
+</body>
+</html>

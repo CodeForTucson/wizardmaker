@@ -169,7 +169,7 @@ function createPage ($step,$scount,$filename,$from) { // passed GET|POST, step, 
 		//  logic to group inputs into one form and one submit button
 		if ($wasAsk == "yes" AND $elSwitch != "Ask for Input") {
 			print '<br>
-			  <input type="submit" value="Submit">
+			  <input type="submit" value="Save">
 			  </form>
 			  <br>';
 			$wasAsk = "no";

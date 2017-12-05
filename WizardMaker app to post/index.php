@@ -8,7 +8,7 @@ define('WIZTITLE', 'All Wizards');
 define('BUTTON_1', '<button class="btn btn-primary" role="button" onclick="togEdit()">
          			Move/Del
          			</button>');
-define('BUTTON_2', '<a href="" class="btn btn-primary" role="button">
+define('BUTTON_2', '<a href="Help/Index_help.html" class="btn btn-primary" role="button" target="_blank">
          			Help
          			</a>');
 define('BUTTON_3', '');

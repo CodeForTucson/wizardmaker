@@ -16,7 +16,7 @@ define('BUTTON_1', '<button class="btn btn-primary"
 define('BUTTON_2', '<button class="btn btn-primary" role="button" onclick="togEdit()">
          			Move/Del
          			</button>');
-define('BUTTON_3', '<a href="" class="btn btn-primary" role="button">
+define('BUTTON_3', '<a href="Help/Step_help.html" class="btn btn-primary" role="button" target="_blank">
          			Help
          			</a>');
 define('BUTTON_4', '<a href="Preview.php?wFrom=onestep" class="btn btn-primary" role="button" target="_blank">

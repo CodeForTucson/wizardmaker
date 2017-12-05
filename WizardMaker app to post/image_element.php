@@ -17,7 +17,7 @@ define('BUTTON_1', '<a href="add_step.php" class="btn btn-primary" role="button"
 // 					onclick="submitAndGo()">
 //          			<span class="glyphicon glyphicon-chevron-left"></span>The Step
 //          			</button>');
-define('BUTTON_2', '<a href="" class="btn btn-primary" role="button">
+define('BUTTON_2', '<a href="Help/Image_help.html" class="btn btn-primary" role="button" target="_blank">
          			Help
          			</a>');
 define('BUTTON_3', '');
@@ -106,7 +106,7 @@ if ($_COOKIE['subBy'] == "add") {
 									  <label for="idname">Placeholder Text:</label>
 									  <input type="text" class="form-control" id="idname" value="' . $defValue . '" name="phTest">
 									  <br>
-									  <button type="submit" class="btn btn-primary">Submit</button>
+									  <button type="submit" class="btn btn-primary">Save</button>
 									</div>
 								</form>');
 			include 'templates/Image_Edit.html';

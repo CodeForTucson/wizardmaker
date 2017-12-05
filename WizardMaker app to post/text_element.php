@@ -11,7 +11,9 @@ define('WIZTITLE', 'Add or Edit Text');
 define('BUTTON_1', '<a href="add_step.php" class="btn btn-primary" role="button">
          			<span class="glyphicon glyphicon-chevron-left"></span>The Step
          			</a>');
-define('BUTTON_2', '');
+define('BUTTON_2', '<a href="Help/Text_help.html" class="btn btn-primary" role="button" target="_blank">
+         			Help
+         			</a>');
 define('BUTTON_3', '');
 define('BUTTON_4', '');
 define('BUTTON_5', '');
@@ -51,7 +53,7 @@ if ($_COOKIE['subBy'] == "add") {
 							'</textarea>
 						</fieldset>
 						<fieldset class="submit">
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="submit" class="btn btn-primary">Save</button>
 						</fieldset>
 					</form>
 					<br>
@@ -123,7 +125,7 @@ if ($_COOKIE['subBy'] == "add") {
 								'</textarea>
 							</fieldset>
 							<fieldset class="submit">
-								<button type="submit" class="btn btn-primary">Submit</button>
+								<button type="submit" class="btn btn-primary">Save</button>
 								
 							</fieldset>
 						</form>
