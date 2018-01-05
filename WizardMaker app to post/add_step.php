@@ -1,6 +1,12 @@
 <?php
-/* This page creates a new step and lists all elements. 11-10
-  You can enter an title and instructions for the step and edit them later.
+/* 
+================================================================================
+
+WizardMaker project - add_step.php.  Builds up one step of the wizard
+Copyright (C) 2018 Paul Tynan <http://www.betterstuffbetterlife.com/>
+
+================================================================================
+
 */
 // read the cookies
 $wname = $_COOKIE['c_name'];
@@ -13,6 +19,12 @@ define('BUTTON_1', '<button class="btn btn-primary"
 					onclick="setAndGo(0,\'back\')">
          			<span class="glyphicon glyphicon-chevron-left"></span>All Steps
          			</button>');
+/* above take out present onclick and replace with simple navigation to wiz_step
+define('BUTTON_1', '<button class="btn btn-primary" 
+					onclick="setAndGo(0,\'back\')">
+         			<span class="glyphicon glyphicon-chevron-left"></span>All Steps
+         			</button>');
+*/
 define('BUTTON_2', '<button class="btn btn-primary" role="button" onclick="togEdit()">
          			Move/Del
          			</button>');
@@ -94,8 +106,7 @@ function moveDelete(eIndex) {
 	$("#editMod").modal();
 }
 function movdelDoit(eAct) {
-	//alert("Hello! I am an alert box!!");
-	
+	// eAct is the action to take -- to move or delete
 	// sent action to PHP program to delete files and node of wizard
 	// if a delete, ask for confirmation first
 	if (eAct == "del") {
@@ -221,8 +232,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				}
 			exit();								 
 	} else { // Forgot a field.
-		print '<p class="text--error">Please make sure you enter a name 
-		 and try again.</p>';
+		// to fix back problem, KO the error and just go back to wiz_steo
+		//		print '<p class="text--error">Please make sure you enter a name 
+		//		 and try again.</p>';
+		header('Location: wiz_step.php');
 	}
 } else { // Display the form.
 	print '<div class="row">
@@ -253,84 +266,87 @@ print '<div class="row">
 
 $elIndex = 0; // set this up as the element index number
 $subIndex = 0;  // used for move and delete
-foreach ($sxe->step[$snum -1]->stepElems[0]->children() as $selm) {
-	//Pass the name of the element handler to gotoElement
-	// 	print 'name is ' . $selm->getName() . '<br>';
-	// 	print ' value is ' . $selm . '<br>';
-	//    $elemName = $selm->getName();
-    $elemName = $selm->type[0];
-    $eltext = $selm->text[0];
-    // add column for move delete buttons
-    print '<div class="row">
-			<div class="col-xs-1 edColumn" id="edDiv" style="display: none;">'; // take out 
-	print '<img src="wizassets/editicon3.jpg" alt="edit button" class="pull-right movdel-button" onclick="moveDelete(' . $subIndex . ')" style="height:25px;width:43px">';
-	// print '<img src="wizassets/editicon3.jpg" alt="edit button" class="pull-right movdel-button" onclick="moveDelete(' . $subIndex . ')" style="height:30px;width:52px">';
-	print '</div>';
-	//print 'index is '. $eNum . ' value is ' . $eText . '<br>';
-	switch ($elemName) {
-				case "Picture or Video":
-					$elHandle = "image_element.php";
-					break;
-				case "Text":
-					$elHandle = "text_element.php";
-					break;
-				case "Ask for Input":
-					$elabel = $selm->label[0];
-					$elHandle = "askInput_element.php";
-					break;										
-				default:
-					//print 'This part not done yet';
-					$elHandle = "Error";
-				}
-	print '<div class="col-xs-4">';
-	print '<button class="btn-info get_label" onclick="gotoElement(\'' . $elIndex . '\',\''. $elHandle . '\')">' . $elemName . '</button><br>';
-	print '</div>';
-	print '<div class="col-xs-6">';
-	// in the future we will put an image, variable name or part of the text by each element
-	// depending on the type of element
-	if ($elemName == "Text") {
-		print strip_tags(substr($eltext,0,25) . "...");  // clean out special characters
-	} 
+// !! check to see if there are any childeren -- otherwise show nothing
+if (isset($sxe->step[$snum -1]->stepElems[0])) {
+	foreach ($sxe->step[$snum -1]->stepElems[0]->children() as $selm) {
+		//Pass the name of the element handler to gotoElement
+		// 	print 'name is ' . $selm->getName() . '<br>';
+		// 	print ' value is ' . $selm . '<br>';
+		//    $elemName = $selm->getName();
+		$elemName = $selm->type[0];
+		$eltext = $selm->text[0];
+		// add column for move delete buttons
+		print '<div class="row">
+				<div class="col-xs-1 edColumn" id="edDiv" style="display: none;">'; // take out 
+		print '<img src="wizassets/editicon3.jpg" alt="edit button" class="pull-right movdel-button" onclick="moveDelete(' . $subIndex . ')" style="height:25px;width:43px">';
+		// print '<img src="wizassets/editicon3.jpg" alt="edit button" class="pull-right movdel-button" onclick="moveDelete(' . $subIndex . ')" style="height:30px;width:52px">';
+		print '</div>';
+		//print 'index is '. $eNum . ' value is ' . $eText . '<br>';
+		switch ($elemName) {
+					case "Picture or Video":
+						$elHandle = "image_element.php";
+						break;
+					case "Text":
+						$elHandle = "text_element.php";
+						break;
+					case "Ask for Input":
+						$elabel = $selm->label[0];
+						$elHandle = "askInput_element.php";
+						break;										
+					default:
+						//print 'This part not done yet';
+						$elHandle = "Error";
+					}
+		print '<div class="col-xs-4">';
+		print '<button class="btn-info get_label" onclick="gotoElement(\'' . $elIndex . '\',\''. $elHandle . '\')">' . $elemName . '</button><br>';
+		print '</div>';
+		print '<div class="col-xs-6">';
+		// in the future we will put an image, variable name or part of the text by each element
+		// depending on the type of element
+		if ($elemName == "Text") {
+			print strip_tags(substr($eltext,0,25) . "...");  // clean out special characters
+		} 
 	
-	if ($elemName == "Ask for Input") { 
-		print $elabel . ',  Name of input is: ' . $eltext;
-	}
+		if ($elemName == "Ask for Input") { 
+			print $elabel . ',  Name of input is: ' . $eltext;
+		}
 	
-	if ($elemName == "Picture or Video") { 
-		if ($selm->place[0] == "no") {
-			// logic determins if I need an image or video control
-			// checks the last 4 characters to see if it is a video file
-			// this uses the bootstrap image control to keep things neet
-			print $eltext . '   ';
-				if (substr_compare($eltext,".mp4",-4,4,TRUE) == 0) {
-					print '<br>';
-					print '<video width="93" height="70">
-								<source src="images/'. $eltext . '" type="video/mp4">
-								 Your browser does not support the video tag.
-							</video>';
-					// print '<br>';		
-				} else {
-					print '<br>';
-					print '<img src="images/'. $eltext . '" class="img-thumbnail" alt="Picture missing" style="width:auto;height:70px;">';
-					// print '<br>';
-				} 
+		if ($elemName == "Picture or Video") { 
+			if ($selm->place[0] == "no") {
+				// logic determins if I need an image or video control
+				// checks the last 4 characters to see if it is a video file
+				// this uses the bootstrap image control to keep things neet
+				print $eltext . '   ';
+					if (substr_compare($eltext,".mp4",-4,4,TRUE) == 0) {
+						print '<br>';
+						print '<video width="93" height="70">
+									<source src="images/'. $eltext . '" type="video/mp4">
+									 Your browser does not support the video tag.
+								</video>';
+						// print '<br>';		
+					} else {
+						print '<br>';
+						print '<img src="images/'. $eltext . '" class="img-thumbnail" alt="Picture missing" style="width:auto;height:70px;">';
+						// print '<br>';
+					} 
 	
-		} else if ($selm->place[0] == "yes") {
-			print $eltext . '   ';
-			print ' (Placeholder Text)';
-		} else  {
+			} else if ($selm->place[0] == "yes") {
+				print $eltext . '   ';
+				print ' (Placeholder Text)';
+			} else  {
 		
-		}	
+			}	
 			
+		}
+	
+	
+		//print  "";       
+		print '</div>';
+		print '</div>';
+		print '<br>';
+		$elIndex = $elIndex + 1; // index of elements
+		$subIndex++;	    // increment idex used for move delete
 	}
-	
-	
- 	//print  "";       
- 	print '</div>';
-	print '</div>';
-	print '<br>';
-	$elIndex = $elIndex + 1; // index of elements
-	$subIndex++;	    // increment idex used for move delete
 }
 //print '<h4 id="clStat">Status of clean<h4>';
 include 'templates/EditModel.html'; // Include the popup.

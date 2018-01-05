@@ -1,4 +1,14 @@
 <?php
+/* 
+================================================================================
+
+WizardMaker project - cleanElems.php.  Moves or deletes elements of a step.
+Called when you click the red button on the all steps page.
+Copyright (C) 2018 Paul Tynan <http://www.betterstuffbetterlife.com/>
+
+================================================================================
+
+*/
 // get the wizard index re wizardlist
 $elem = $_REQUEST["q"];  // index of element to be processed
 $act = $_REQUEST["a"];  // action: move up, move down or delete
@@ -12,8 +22,9 @@ $doc->preserveWhiteSpace = false;
 $doc->formatOutput = true;  // so it will output nicely with indents
 $doc->load($wfile);
 
-// get the DOM parent node to the elements
-$elemParnt = $doc->getElementsByTagName("stepElems")->item(0);
+// get the DOM parent node to the elements - !! what if not first step?
+// old line - $elemParnt = $doc->getElementsByTagName("stepElems")->item(0);
+$elemParnt = $doc->getElementsByTagName("stepElems")->item($sIndex - 1);
 // get the element that is to be processed
 $elemToGo = $elemParnt->childNodes->item($elem);
 // get the number of elements

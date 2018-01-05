@@ -1,6 +1,12 @@
-
 <?php
-/*This is the settings page 
+/*
+================================================================================
+
+WizardMaker project - settings.php.  For setting wizard wide information.
+Copyright (C) 2018 Paul Tynan <http://www.betterstuffbetterlife.com/>
+
+================================================================================
+ 
 */
 // set the title
 define('WIZTITLE', 'Settings');
@@ -22,7 +28,8 @@ define('BUTTON_7', '<button type="submit" form="settingsForm" class="btn btn-pri
 include 'templates/header_plus.html';
 // Leave the PHP section to display lots of HTML:
 print '<h3> Enter the name of your wizard and a short description. </h3>';
-// Check if the form has been submitted:
+// !! Check if the form has been submitted but only if coming from all steps
+// !! do we need this?
 $wizIndex = $_COOKIE['c_windex'];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	// Handle the form:
@@ -31,7 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$wdesc = $_POST["wdesc"];
 		if($_COOKIE['c_from'] == "index") {
 			$wstepnum = 1; // since new, creat first step
-			$maxWiz = $_COOKIE['c_wmax'] + 1;
+			$maxWiz = $_COOKIE['c_wmax'] + 1; // number of wizards
+			// !! hey, where was c_max set?
 			wizFiles($wname,$wdesc,$maxWiz); //  save the data in xml 
 			$hstring = "Location: add_step.php";
 		} else { 
@@ -74,9 +82,9 @@ function wizFiles($name,$desc,$index) {
 	// save key data as cookies 
 	setcookie('c_name', $name); // save the name of the wizard
 	setcookie('c_file', $wfile); // save the file name of the wizard
-	setcookie('c_windex', $index); // increment the index
+	setcookie('c_windex', $index); // increment the index - number of wizards
 	//setcookie('c_desc', $desc); // save the description of the wizard
-	setcookie('c_snum', '1'); // save the name of the wizard
+	setcookie('c_snum', '1'); // save the step number
 	// create the new xml file for the wizard
 	$myfile = fopen($wfile, "w") or die("Unable to open file!");
 	// write a few lines to create an xml file

@@ -1,10 +1,12 @@
 <?php
-/*
-For now, 10/20/17,lets just do an image upload and caption
-This is not in the spec but the problem is the suer may need to make the image
-smaller, crop it, edit a video, etc. anyway and it may be hard to do this on a phone
-So we will have them put in a placeholder and upload later when editing.
-*/ 
+/* 
+================================================================================
+
+WizardMaker project - image_element.php.  Home page of the WizardMaker.
+Copyright (C) 2018 Paul Tynan <http://www.betterstuffbetterlife.com/>
+
+================================================================================
+*/
 define('WIZTITLE', 'Picture or Video');
 // set the four buttons left to right Edit/back nav, Settings, Preview, Done/plus sign
 // define('BUTTON_1', '<a href="add_step.php" class="btn btn-primary" role="button">

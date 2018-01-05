@@ -1,7 +1,13 @@
 <?php
-/* This is the home page for this site.
-Just learning about Github so I will commit some minor change and see how it goes
-It uses templates to create the layout. */
+/* 
+================================================================================
+
+WizardMaker project - index.php.  Home page of the WizardMaker.
+Copyright (C) 2018 Paul Tynan <http://www.betterstuffbetterlife.com/>
+
+================================================================================
+
+*/
 // set the title
 define('WIZTITLE', 'All Wizards');
 // set the four buttons left to right Edit/back nav, Settings, Preview, Done/plus sign
@@ -120,14 +126,17 @@ function movdelDoit(eAct) {
 }
 
 // set cookies and then link to the next screen
-function setAndGo(name,file) {
+function setAndGo(name,file,index) {
     document.cookie = "c_name=" + name;
     document.cookie = "c_file=" + file;
+    document.cookie = "c_windex=" + index;
     window.location.assign("http://betterstuffbetterlife.com/pttrot/WizardMakerApp/wiz_step.php");
 }
 // set cookie so Settings knows this is a new wizard.
 function goSettings() {
     document.cookie = "c_from=" + "index";
+    // set cookie to tell settings what wizard we are dealing with
+    
     window.location.assign("http://betterstuffbetterlife.com/pttrot/WizardMakerApp/settings.php");
 }
 
@@ -156,7 +165,7 @@ foreach ($xml-> children() as $wizard) {
 	// print '<img src="wizassets/editicon3.jpg" alt="edit button" class="pull-right movdel-button" onclick="moveDelete(' . $subIndex . ')" style="height:30px;width:52px">';
 	print '</div>';
 	print '<div class="col-xs-4">';
-	print '<button class="btn-info get_label" onclick="setAndGo(\'' . $name . '\',\'' . $file . '\')">' . $name . '</button>';
+	print '<button class="btn-info get_label" onclick="setAndGo(\'' . $name . '\',\'' . $file . '\',\'' .$subIndex . '\')">' . $name . '</button>';
 	print '</div>';
 	print '<div class="col-xs-6">';
  	print  $desc;
@@ -165,6 +174,10 @@ foreach ($xml-> children() as $wizard) {
 	print '<br>';
 	$subIndex++;	    // increment idex used for move delete
 }
+setcookie('c_wmax', $subIndex); // save the max number of wizards
+// if doing new wizard, need to know what the index is if you don't click above
+// so setting windex to same as max
+setcookie('c_windex', $subIndex); // save the max number of wizards
 //print '<h4 id="clStat">Status of clean<h4>';
 // end of row add blank column to right
 //print '</div>';  // end of container in header_plus

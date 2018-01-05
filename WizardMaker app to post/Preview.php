@@ -1,5 +1,13 @@
 <?php
-/* Preview. 
+/* 
+================================================================================
+
+WizardMaker project - Preview.php.  Shows the wizard as the end user would see it.
+Copyright (C) 2018 Paul Tynan <http://www.betterstuffbetterlife.com/>
+
+================================================================================
+
+Preview. 
 	Looks at a wizard xml file and generates the wizard based on those data
 	It is called with a GET url from either the wiz_step page, all_step or from anywhere
 	when the wizard is done and it is being presented on a web site.
@@ -79,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 		}
 	
 		// if wFrom is from either the all steps page or a step, we know the cookie data is OK
-		// !! make sure all data needed after the post is saved as session data
+		// make sure all data needed after the post is saved as session data
 	} else {
 		print 'Error getting data from call';
 	}
@@ -126,6 +134,7 @@ function createPage ($step,$scount,$filename,$from) { // passed GET|POST, step, 
 	$xmlStep=simplexml_load_file($filename) or die("Error: Cannot create object");
 	$sName = $xmlStep->step[$step -1]->title;    // get the name of the step
 	// $sInstruct = $xmlStep->step[$step -1]->instruct;    // get the instructions or the step
+	$numElements = $xmlStep->step[$step -1]->stepElems[0]->count(); // get number of elements
 	$sElements = $xmlStep->step[$step -1]->stepElems[0]->children();    // put all elements in an array
 
 	// define the title for the top matter
@@ -163,16 +172,25 @@ function createPage ($step,$scount,$filename,$from) { // passed GET|POST, step, 
 	// now for we display the elements
 	// cycle through and display all elements
 	$wasAsk = "no";  // use to create form
+	$elemCount = 0; // use to count how many elements have been displayed
 	foreach ($sElements as $elem) {
+		$elemCount++; // increment count of number of elements
 		$elSwitch = $elem->type;
  		// print 'elememnt type is ' . $elem->type . "<br>";
 		//  logic to group inputs into one form and one submit button
-		if ($wasAsk == "yes" AND $elSwitch != "Ask for Input") {
-			print '<br>
+		// !! but need to check and see if this is the last element -- if so, add the submit button
+		//print 'total elements is ' . $numElements . '   count is ' . $elemCount . '<br>';
+		if ($wasAsk == "yes") {  // there is at least one input control
+			if ($elSwitch != "Ask for Input" ) { // next element is not ask for input
+			// if (($elemCount = $numElements) OR ($elSwitch != "Ask for Input" )) { // next element is not ask for input
+			// or this is the last element
+				print '<br>
 			  <input type="submit" value="Save">
 			  </form>
 			  <br>';
-			$wasAsk = "no";
+			 $wasAsk = "no";
+			}
+			
 		}
 		switch ($elSwitch) {
 			
@@ -197,9 +215,7 @@ function createPage ($step,$scount,$filename,$from) { // passed GET|POST, step, 
 			case "Ask for Input": // for an element asking for input -- complex we group them - one submit button
 				// collect all inputs for this page. how many?
 				if ($wasAsk == "no") {
-	
 					print '<form action="http://betterstuffbetterlife.com/pttrot/WizardMakerApp/Preview.php" method="POST">'; // top part of form
-	
 					$wasAsk = "yes";  
 				}
 				$inLabel = $elem->label;    // label for form
@@ -210,31 +226,44 @@ function createPage ($step,$scount,$filename,$from) { // passed GET|POST, step, 
 				} else {
 					$value = "";
 				}
-			
 				print $inLabel . '<br>
 				  <input type="text" pattern="^-?[0-9]\d*(\.\d+)?$" name="' . $inVar . '" value="' . $value .'"> <br>';
-			
 				// cycle and print all input forms
 				// print the submit button 
 				break;
 			case "Picture or Video": // to show a picture or video
 				$texttemp = $elem->text;
-				if (substr_compare($texttemp,".mp4",-4,4,TRUE) == 0) {
-				print '<video width="300" height="225" controls>
+				if ($elem->place == "yes") {
+					print '<div class="well">Place a video or picture here: ' . $texttemp . '</div>';
+						 print '<br>';
+						 print '<br>';
+				
+				} else {
+					if (substr_compare($texttemp,".mp4",-4,4,TRUE) == 0) {
+					print '<video width="300" height="225" controls>
 							<source src="images/'. $texttemp . '" type="video/mp4">
 							 Your browser does not support the video tag.
 						</video>';
 			   			 print '<br>';
 			   			 print '<br>';		
-				} else {
-					print '<img src="images/'. $texttemp . '" alt="Picture missing" style="width:auto;height:300px;">';
-				    print '<br>';
-				    print '<br>';
-				} 
-			
+					} else {
+						print '<img src="images/'. $texttemp . '" alt="Picture missing" style="width:auto;height:300px;">';
+						print '<br>';
+						print '<br>';
+					}
+				}	
 			break;
 		}
 	}
+	if ($wasAsk == "yes") {  // there is at least one input control
+			print '<br>
+			  <input type="submit" value="Save">
+			  </form>
+			  <br>';
+			 $wasAsk = "no";
+	
+		}
+	
 	include 'templates/genWizBottom.html'; // print the template for upper matter
 	// flush the buffer and show the page
 	ob_end_flush();	

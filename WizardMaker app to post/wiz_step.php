@@ -1,9 +1,12 @@
 <?php
-/* This page lists the steps of the wizard plus the title and instructions.
-11-10--17 
-todo:
-X Keep track of the step number as well 
-- Issue, when + hit does not increment step number so redo it to use setandgo and up the cookie
+/* 
+================================================================================
+
+WizardMaker project - wiz_step.php.  Displays all steps of a wizard.
+Copyright (C) 2018 Paul Tynan <http://www.betterstuffbetterlife.com/>
+
+================================================================================
+
 */
 // get the cookie data
 $wname = $_COOKIE['c_name'];
@@ -22,9 +25,9 @@ define('BUTTON_3', '<a href="Help/AllSteps_help.html" class="btn btn-primary" ro
 define('BUTTON_4', '<a href="Preview.php?wFrom=allsteps" class="btn btn-primary" role="button" target="_blank">
          			Preview
          			</a>');
-define('BUTTON_5', '<a href="" class="btn btn-primary" role="button">
+define('BUTTON_5', '<button class="btn btn-primary" role="button" onclick="goSettings()">
          			Settings
-         			</a>');
+         			</button>');
 define('BUTTON_6', '<a href="" class="btn btn-primary" role="button">
          			Export
          			</a>');
@@ -33,10 +36,15 @@ define('BUTTON_7', '<button  class="btn btn-primary"
     				<span class="glyphicon glyphicon-plus"></span>
     				</button>');
     				// onclick="setAndGo(0,\'add\')">
-// define('BUTTON_4', '<a href="add_step.php" class="btn btn-primary" role="button">
-//     				<span class="glyphicon glyphicon-plus"></span>
-//     				</a>');
-// Include the header:
+/* define('BUTTON_4', '<a href="add_step.php" class="btn btn-primary" role="button">
+     				<span class="glyphicon glyphicon-plus"></span>
+    				</a>');
+ Old settings button
+ define('BUTTON_5', '<a href="" class="btn btn-primary" role="button">
+         			Settings
+         			</a>');
+*/
+// include the header
 include 'templates/header_plus.html';
 ?>
 <!-- leave php to add javascript for setting cookies, the  go to wiz_step -->
@@ -134,7 +142,6 @@ function movdelDoit(eAct) {
 				
 }
 
-
 function setAndGo(title,file,count) {
 	// if + was not selected then set step number to the step selected
 	// otherwise leave the cookie at the number for the next step
@@ -145,6 +152,12 @@ function setAndGo(title,file,count) {
     //document.cookie = "c_file=" + file;
     document.cookie = "c_sname=" + title; //title of the step
     window.location.assign("http://betterstuffbetterlife.com/pttrot/WizardMakerApp/add_step.php");
+}
+function goSettings() {
+	// just lets the settings button go to Settings and set the from cookie
+	//alert("Hello! I made it to goSettings!");
+	document.cookie = "c_from=" + "wizstep";
+    window.location.assign("http://betterstuffbetterlife.com/pttrot/WizardMakerApp/settings.php");
 }
 </script>
 <?php

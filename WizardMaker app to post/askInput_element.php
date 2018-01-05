@@ -33,6 +33,7 @@ if ($_COOKIE['subBy'] == "add") {
 		} 
 	} else { // must be no data -- no forms submitted so ask for text
 		$wizText = '';
+		$wizInLabel = '';
 // 		print 'Got to add but no post';
 // 		print '<br';
 		//sleep(10);

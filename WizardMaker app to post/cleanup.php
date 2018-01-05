@@ -1,4 +1,14 @@
 <?php
+/* 
+================================================================================
+
+WizardMaker project - cleanup.php.  Moves or deletes elements of a step.
+Called when you click the red button on the all steps page.
+Copyright (C) 2018 Paul Tynan <http://www.betterstuffbetterlife.com/>
+
+================================================================================
+
+*/
 // get the wizard index re wizardlist
 $wiz = $_REQUEST["q"];
 $act = $_REQUEST["a"];
