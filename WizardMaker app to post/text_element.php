@@ -1,10 +1,18 @@
 <?php
 /*
+================================================================================
+
+WizardMaker project - text_element.php.  Adds a block of text to the wizard.
+Copyright (C) 2018 Paul Tynan <http://www.betterstuffbetterlife.com/>
+
+================================================================================
+
 This program uses opensource code under GNU General Public License.  See the file beolw for more information.
       File: widgEdit.js
       Created by: Cameron Adams (http://www.themaninblue.com/)
       Created on: 2005-01-16
-It uses templates to create the layout. */
+
+*/
 // set the title
 define('WIZTITLE', 'Add or Edit Text');
 // set the four buttons left to right Edit/back nav, Settings, Preview, Done/plus sign
@@ -23,10 +31,31 @@ define('BUTTON_7', '<a href="add_step.php" class="btn btn-primary" role="button"
     				</a>');
 // Include the header:
 include 'templates/header_plus.html';
+/* !! add routine to step through the steps and for each one find all the variables
+	and labels.  but only look in steps up to and including this step.
+	Build up an array for variables and labels up to and including this step.
+*/
+$sIn = intval($_COOKIE['c_snum']);  // step number minnus 1 is the xml index
+$xmlv=simplexml_load_file($_COOKIE['c_file']) or die("Error: Cannot create object");
+//$wizVars = $xmlv->xpath('/wizard/step[' .$sIn . ']/stepElems/sElem[type = "Ask for Input"]/text');
+//print 'Output of all the variables up to and including this step <br>';
+//print 'step number is  ' . $sIn . '<br>';
+//print '<br>';
+$varMerge = array();
+$labMerge = array();
+for ($x = 1; $x <= $sIn; $x++) {
+    $wizVars = $xmlv->xpath('/wizard/step[' . $x . ']/stepElems/sElem[type = "Ask for Input"]/text');
+    $wizLabls = $xmlv->xpath('/wizard/step[' . $x . ']/stepElems/sElem[type = "Ask for Input"]/label');
+    $varMerge = array_merge ($varMerge, $wizVars);
+    $labMerge = array_merge ($labMerge, $wizLabls);
+}
+//var_dump($varMerge);
+//foreach ($xmlv->step[i]->stepElems[0]->children() as $elems) {
+//}
 //check to see if POST data received
-if ($_COOKIE['subBy'] == "add") {
+if ($_COOKIE['subBy'] == "add") { // adding a new bit of text
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
-		if (isset($_POST['noise'])) { // store place holder here
+		if (isset($_POST['noise'])) { // store text here
 			$wizText = $_POST["noise"];
 			// store the text
 			storeData("Text","na",$wizText,"add"); // store the data in the xml file
@@ -41,11 +70,37 @@ if ($_COOKIE['subBy'] == "add") {
 		//sleep(10);
 		
 	  print '<div class="row">
-				<div class="col-xs-6">
-					<p> Enter instructions for your step.  To perform a calculation bracket the equation with "cal#" at the front and "#" at the end. 
-						For example, if you named a user input "Width" using Ask for Input you could create cal#(Width/2)+2# to divide it in half and add 2.
-						and add 2 to it.</p>
-					<form action="text_element.php" method="post">
+					<div class="col-xs-6">
+					<p> Enter some text for this step. 
+					To add a calculation type in a expresion using * to multiply, / 
+					to divide, + to add and - to subtract. For example you might enter
+					"numServings*3" where numServings is the name of a number entered by a user
+					because you used an Ask for Input element. Use parentheses for more complex expressions.
+					</p>
+					<p>
+					Next, select this expression and click or touch the Calculation icon 
+					<img src="wizassets/CalculatorIcon.gif" alt="calc icon" align="bottom" style="height:22px;width:22px">.
+					The expression will appear in italics. When the end user sees the final wizard
+					only the calculated number will appear. Use Preview to check this.
+					Also, see Help for more information.
+					</p>';
+			// get and list all variables in the wizard so far
+			// load the wizard file
+			//$xmlv=simplexml_load_file($_COOKIE['c_file']) or die("Error: Cannot create object");
+			// need xpath to find all the variables in the wizard
+			//$wizVars = $xmlv->xpath('/wizard/step/stepElems/sElem[type = "Ask for Input"]/text');
+			//$wizLabls = $xmlv->xpath('/wizard/step/stepElems/sElem[type = "Ask for Input"]/label');				
+			if ($varMerge[0] != "") {
+				print '<p> Here are the names of the inputs you can use in your expressions.</p>';
+				for ($vCnt = 0; $vCnt < count($varMerge); $vCnt++) {
+					print '<b>' . $varMerge[$vCnt] . '</b> (' . $labMerge[$vCnt] .  ')<br>';
+				}
+			} else {	
+				print '<p><b>No names of user input are yet available. You cannot add calculations to your
+								text.</b></p>';
+			}		
+					
+				Print '<br><form action="text_element.php" method="post">
 						<fieldset>
 							<label for="noise">Enter text here:</label>
 							<textarea id="noise" name="noise" class="widgEditor nothing">'
@@ -54,6 +109,7 @@ if ($_COOKIE['subBy'] == "add") {
 						</fieldset>
 						<fieldset class="submit">
 							<button type="submit" class="btn btn-primary">Save</button>
+						
 						</fieldset>
 					</form>
 					<br>
@@ -61,30 +117,6 @@ if ($_COOKIE['subBy'] == "add") {
 				<div class="col-xs-6">
 				</div>
 			</div>';
-			// replaced above. <input type="submit" value="Submit" />
-			// get and list all variables in the wizard so far
-			// load the wizard file
-			$xmlv=simplexml_load_file($_COOKIE['c_file']) or die("Error: Cannot create object");
-			// need xpath to find all the variables in the wizard
-			$wizVars = $xmlv->xpath('/wizard/step/stepElems/sElem[type = "Ask for Input"]/text');
-			$wizLabls = $xmlv->xpath('/wizard/step/stepElems/sElem[type = "Ask for Input"]/label');
-			
-			if ($wizLabls[0] != "") {
-				print '<div class="row">
-						<div class="col-xs-6">
-							<p> Here are all the labels the input boxes you created (using the Ask for Input element) followed by the name
-							of the number you are collecting from the user.  If you are adding calculations, use these names (in bold) in the calculations
-							you enter into the text above.</p>';
-				for ($vCnt = 0; $vCnt < count($wizVars); $vCnt++) {
-					print $wizLabls[$vCnt] . '   <b>' . $wizVars[$vCnt] . '</b> <br>';
-			
-				}
-				print '</div> 
-								<div class="col-xs-6">
-
-								</div>
-						</div>';
-			}
 				
 	}
 } else {  //must be edit
@@ -114,55 +146,58 @@ if ($_COOKIE['subBy'] == "add") {
 // 		print '<br>';
 		  print '<div class="row">
 					<div class="col-xs-6">
-						<p> Edit the instructions for your step.  To perform a calculation bracket the equation with "cal#" at the front and "#" at the end. 
-						For example, if you named a user input "Width" using Ask for Input you could create cal#(Width/2)+2# to divide it in half and add 2.
-						and add 2 to it.</p>
-						<form action="text_element.php" method="post">
-							<fieldset>
-								<label for="noise">Enter text here:</label>
-								<textarea id="noise" name="noise" class="widgEditor nothing">'
-								. $wizText .
-								'</textarea>
-							</fieldset>
-							<fieldset class="submit">
-								<button type="submit" class="btn btn-primary">Save</button>
-								
-							</fieldset>
-						</form>
-						<br>
-					</div> 
-					<div class="col-xs-6">
-					</div>
-				</div>';
-			// replaced above <input type="submit" value="Submit" />
+					<p> Edit the text for this step. 
+					To add a calculation type in a expresion using * to multiply, / 
+					to divide, + to add and - to subtract. For example you might enter
+					"numServings*3" where numServings is the name of a number entered by a user
+					because you used an Ask for Input element. Use parentheses for more complex expressions.
+					</p>
+					<p>
+					Next, select this expression and click or touch the Calculation icon 
+					<img src="wizassets/CalculatorIcon.gif" alt="calc icon" align="bottom" style="height:22px;width:22px">.
+					The expression will appear in italics. When the end user sees the final wizard
+					only the calculated number will appear. Use Preview to check this.
+					Also, see Help for more information.
+					</p>';
 			// get and list all variables in the wizard so far
 			// load the wizard file
-			$xmlv=simplexml_load_file($_COOKIE['c_file']) or die("Error: Cannot create object");
+			//$xmlv=simplexml_load_file($_COOKIE['c_file']) or die("Error: Cannot create object");
 			// need xpath to find all the variables in the wizard
-			$wizVars = $xmlv->xpath('/wizard/step/stepElems/sElem[type = "Ask for Input"]/text');
-			$wizLabls = $xmlv->xpath('/wizard/step/stepElems/sElem[type = "Ask for Input"]/label');
-			
-			if ($wizLabls[0] != "") {
-				print '<div class="row">
-						<div class="col-xs-6">
-							<p> Here are all the labels the input boxes you created (using the Ask for Input element) followed by the name
-							of the number you are collecting from the user.  If you are adding calculations, use these names (in bold) in the calculations
-							you enter into the text above.</p>';
-				for ($vCnt = 0; $vCnt < count($wizVars); $vCnt++) {
-					print $wizLabls[$vCnt] . '   <b>' . $wizVars[$vCnt] . '</b> <br>';
-			
+			//$wizVars = $xmlv->xpath('/wizard/step/stepElems/sElem[type = "Ask for Input"]/text');
+			//$wizLabls = $xmlv->xpath('/wizard/step/stepElems/sElem[type = "Ask for Input"]/label');				
+			if ($varMerge[0] != "") {
+				print '<p> Here are the names of the inputs you can use in your expressions.</p>';
+				for ($vCnt = 0; $vCnt < count($varMerge); $vCnt++) {
+					print '<b>' . $varMerge[$vCnt] . '</b> (' . $labMerge[$vCnt] .  ')<br>';
 				}
-				print '</div> 
-								<div class="col-xs-6">
-
-								</div>
-						</div>';
-			}
-
-				
+			} else {	
+				print '<p><b>No names of user input are yet available. You cannot add calculations to your
+								text.</b></p>';
+			}		
+					
+				Print '<br><form action="text_element.php" method="post">
+						<fieldset>
+							<label for="noise">Enter text here:</label>
+							<textarea id="noise" name="noise" class="widgEditor nothing">'
+							. $wizText .
+							'</textarea>
+						</fieldset>
+						<fieldset class="submit">
+							<button type="submit" class="btn btn-primary">Save</button>
+						
+						</fieldset>
+					</form>
+					<br>
+				</div> 
+				<div class="col-xs-6">
+				</div>
+			</div>';
+			// replaced above <input type="submit" value="Submit" />
+									
 	}
 }
 function storeData($elType,$place, $value,$addrep) {
+	// asks for element type, if a placekeeper, the text to save, and to add or edit.
 	//load in the xmp file for this wizard
 	$wfile = $_COOKIE['c_file']; // the wizard file is kept as a cookie
 	$sIndex = intval($_COOKIE['c_snum'] -1);  // step number minnus 1 is the xml index
@@ -199,24 +234,26 @@ function storeData($elType,$place, $value,$addrep) {
 // 		$sxe->step[$sIndex]->stepElems->sElem[$imIndex]->addChild("text",$value);
 	} else {
 		//just replace the edited element's data
-		//$doc->getElementsByTagName("type")->item($enum3)->nodeValue = $elType;
-		//$doc->getElementsByTagName("place")->item($enum3)->nodeValue = $place;
 		// get old text node with CDATA
-		$textold = $doc->getElementsByTagName("text")->item($enum3);
-		//$textrep = $doc->createElement("text");
+		//$textold = $doc->getElementsByTagName("text")->item($enum3);
+		// new code -- get to the right text node
+		$textold = $doc->getElementsByTagName("stepElems")->item($sIndex);
+		$tarElem = $textold->getElementsByTagName("sElem")->item($enum3);
+		$tarText = $tarElem->getElementsByTagName("text")->item(0);
 		// create new text node and apppend it
-		$textrep = $textold->parentNode->appendChild($doc->createElement('text'));
+		$textrep = $tarText->parentNode->appendChild($doc->createElement('text'));
 		$cdr = $doc->createCDATASection($value);  // create CDATA section out of text
 		$textrep->appendChild($cdr);		// append it to the new text node
-		$textold->parentNode->replaceChild($textrep,$textold);  // replace the old with new
-		// $temElems = $sxe->step[$sIndex]->stepElems[0]->children(); // get present tit
-// 		$temElems[$enum3]->type = $elType;
-// 		$temElems[$enum3]->place = $place;
-// 		$temElems[$enum3]->text = $value;
+		$tarText->parentNode->replaceChild($textrep,$tarText);  // replace the old with new
+		
+		// fixture code to compare
+		// $textrep = $tarText->parentNode->appendChild($doc2->createElement('text'));
+// 		$cdr = $doc2->createCDATASection('The new test text');  // create CDATA section out of text
+// 		$textrep->appendChild($cdr);		// append it to the new text node
+// 		$tarText->parentNode->replaceChild($textrep,$tarText);
+
 	}
-	// now add an attribute to this element.
-	//$sxe->step[$sIndex]->stepElems[0]->image[$imIndex]->addAttribute("sElem");
-	//$doc->loadXML($sxe->asXML()); // convert back to DOM document
+	
 	$doc->save($wfile);
 }
 function getStepElement() {

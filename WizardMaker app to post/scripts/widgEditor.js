@@ -965,8 +965,8 @@ function widgToolbar(theEditor)
 				break;
 				
 			case "italic":
-				this.addButton(this.theList.id + "ButtonItalic", "widgButtonItalic", "Italic", "italic");
-				
+				this.addButton(this.theList.id + "ButtonItalic", "widgButtonItalic", "Calculate", "italic");
+				// pt this.addButton(this.theList.id + "ButtonItalic", "widgButtonItalic", "Italic", "italic");
 				break;
 				
 			case "hyperlink":
@@ -1241,8 +1241,8 @@ function widgToolbarAction()
 			break;
 			
 		case "image":
-			var theImage = prompt("Enter the location for this image:", "");
-			
+			//var theImage = prompt("Enter the location for this image:", "");
+			var theImage = prompt("Enter the calculation using the names of the input above", "");
 			if (theImage != null && theImage != "")
 			{
 				var theAlt = prompt("Enter the alternate text for this image:", "");

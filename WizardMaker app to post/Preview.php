@@ -197,7 +197,7 @@ function createPage ($step,$scount,$filename,$from) { // passed GET|POST, step, 
 			case "Text":       // for a text element
 				// check to see if it has calculations
 				$texttemp = $elem->text;
-				if (strpos($texttemp, "cal#", 0) == false) {
+				if (strpos($texttemp, "<i>", 0) == false) {
 					print "<br>";
 					print $texttemp;  // 1 is true 0 is false -- no calculations so print
 				} else if (addCalcs($texttemp) == "error") { // if calculation error -- print nothing
@@ -275,14 +275,17 @@ function addCalcs($inputText) {
 	// if variables have no values, return the word error.
 	$matchYN = 1;
 	while ($matchYN == 1) {
-		$matchYN = preg_match('/cal#.+?#/', $inputText,$varSt);
+		//$matchYN = preg_match('/cal#.+?#/', $inputText,$varSt);
+		// match a string starting with the <i> tag, then any character "."
+		// then "+" means any number of any character and that + is optional because of the "?".
+		$matchYN = preg_match('/<i>.+?<\/i>/', $inputText,$varSt);
 		//var_dump($varSt);
 		if ($matchYN == 0) {
 			break;
 		}
 		$varLong = $varSt[0]; // xxx
 		//print 'regex result was ' . $varLong . '<br>';
-		$core = html_entity_decode(substr($varLong,4,strlen($varLong)-5));  // trim off cal# and # and special characters
+		$core = html_entity_decode(substr($varLong,4,strlen($varLong)-5));  // trim off italic tags and special characters
 		//print 'expression part is ' . $core . '<br>';
 		// $varMatch = 1;
 		$varText = "xx";
