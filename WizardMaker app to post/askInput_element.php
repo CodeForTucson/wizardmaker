@@ -1,6 +1,15 @@
 <?php
-/* This is the ask for input module, modeled after text_element
-It uses templates to create the layout. */
+/* 
+================================================================================
+
+WizardMaker project - askInput_element.php.  Add text to wizards.
+Copyright (C) 2018 Paul Tynan <http://www.betterstuffbetterlife.com/>
+
+================================================================================
+
+This is the ask for input module, modeled after text_element
+It uses templates to create the layout. 
+*/
 // set the title
 define('WIZTITLE', 'Add or Edit a Request for Input');
 // set the four buttons left to right Edit/back nav, Settings, Preview, Done/plus sign

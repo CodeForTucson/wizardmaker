@@ -270,7 +270,7 @@ function createPage ($step,$scount,$filename,$from) { // passed GET|POST, step, 
 }
 // funcitons
 function addCalcs($inputText) {
-	// Find the Cal#xxx# string and replace it with the calculated value
+	// Find italic tags and replace the expression between them with the calculated value
 	// if no more calculations, return the modified text
 	// if variables have no values, return the word error.
 	$matchYN = 1;
@@ -280,17 +280,21 @@ function addCalcs($inputText) {
 		// then "+" means any number of any character and that + is optional because of the "?".
 		$matchYN = preg_match('/<i>.+?<\/i>/', $inputText,$varSt);
 		//var_dump($varSt);
+		//print 'MatchYN = ' .$matchYN . '<br>';
 		if ($matchYN == 0) {
 			break;
 		}
 		$varLong = $varSt[0]; // xxx
-		//print 'regex result was ' . $varLong . '<br>';
-		$core = html_entity_decode(substr($varLong,4,strlen($varLong)-5));  // trim off italic tags and special characters
-		//print 'expression part is ' . $core . '<br>';
+		//print 'regex result (varlong) was ' . $varLong . '<br>';
+		$core = html_entity_decode(substr($varLong,3,strlen($varLong)-7));  // trim off italic tags and special characters
+		//$core = html_entity_decode(substr($varLong,0,strlen($varLong)));  // trim off special characters
+		//$core = $varLong;
+		//print 'expression part (core) is ' . $core . '<br>';
 		// $varMatch = 1;
 		$varText = "xx";
 		while ($varText != "") {   // find all the variables and replace with values
 			preg_match('/[A-Za-z]+[A-Za-z0-9]+/', $core, $uVar);
+			//print 'list of variables is:<br>';
 			//var_dump($uVar);
 			//print '<br>';
 			// preg_match('/^[A-Za-z][A-Za-z0-9]*/', $core,$uVar);
@@ -315,10 +319,16 @@ function addCalcs($inputText) {
 			// replace variable with number
 			$core = str_replace($varText, $varValue, $core);	// replace variable with value
 			
-			//print 'expression replaced with input is ' . $core . '<br>';
+			//print 'expression replaced with input is $core ' . $core . '<br>';
+			
 		}
-		$coreString = preg_replace("/[^A-Za-z0-9+*.()-\/]/", "", $core);  //convert to string and strip out spaces
-		//print 'expression sent to evalmath is ' . $coreString . '<br>';
+		//$coreString = preg_replace("/[^A-Za-z0-9+*.()-\/]/", "", $core);  //convert to string and strip out spaces
+		$coreString = $core;
+		// print 'Vardump of $corestring is <br>';
+// 		var_dump($coreString);
+// 		print '<br>';
+		
+		//print 'expression sent to evalmath is $corestring ' . $coreString . '<br>';
 		$m = new EvalMath;
 		$result = $m->evaluate($coreString);
 		//print 'result of math crunching is ' . $result . '<br>';
@@ -326,7 +336,7 @@ function addCalcs($inputText) {
 		// can't use preg_replace because of the special characters uses as operators.
 	
 		$inputText = str_replace($varLong, $result, $inputText);
-		//print 'new text for user is  ' . $stnug2 . '<br>';
+		//print 'new text for user is  ' . $inputText . '<br>';
 		
 	}
 	return $inputText; // send it back and done
