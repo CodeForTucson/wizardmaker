@@ -19,29 +19,14 @@
 <h1>Help for the Text Element Page</h1>
 <p>
 The purpose of this element is to add some instructions to your step.  
-As you can see from the tool bar you can create bold or italic text, create bulleted or numbered lists 
-or turn text into a hyperlink. 
-You can also add levels of heading with the Change Block Type drop down control. 
+As you can see from the tool bar you can create bold text as well as bulleted or numbered lists 
+You can also add links to other websites.  
 </p>
 <img class="img-responsive" src="Text_help-editBox.png" alt="Settings to of page image" style="width:700px;height:auto;">
 <p>
-Lastly you can add calculations to your text by entering a math expression and entering “cal# befor it and “#” after it.  
-Suppose your wizard tells users how to make a casserole but the user can decide how much to make. 
-You might ask users, using Ask for Input for a number servings they want to cook.  
-When you created that user input element you named the result “numServings” (see <a href="AskForInput_help.html">Ask for Input help</a>).
-Maybe you need 1/2 cup of noodles per serving so when you list the ingredients you might add:.
-</p>
-<p>
-&nbsp;&nbsp;&nbsp; Add cal#numServings * 0.5# cups of noodles
-</p>
-
-<p>
-If the user wants 4 servings then this text will look like “Add 2 cups of noodles” 
-when you look at the wizard in Preview.
-</p>
-<p>
+Lastly you can add calculations to your text by entering a math expression.  
 You can use the following math symbols:
-</p>
+
 <ul>
 	<li>+ to add </li>
 	<li>- to subtract </li>
@@ -49,24 +34,33 @@ You can use the following math symbols:
 	<li>/ to divide</li>
 	<li>^ raise to a power</li>
 </ul>
+</p>
 <p>
-You can enter a positive or negative number and a fraction (2, -2, -2.5).  
+You can enter a positive or negative number or a fraction (2, -2, -2.5).  
 You can also use parentheses to make more complex expressions. 
 Using our input name above we might create:
 </p>
-<p>
-&nbsp;&nbsp;&nbsp; cal#(numServings * 2) + 1#
+Suppose your wizard instructs users on how to make a casserole and allows them to decide how much to make. 
+You would ask users, using Ask for Input for the number servings of they want to cook.  
+When you created that user input element you named the result “Servings” (see <a href="AskForInput_help.html">Ask for Input help</a>).
+Maybe you need 1/2 cup of noodles per serving so when you list the ingredients you might type:
 </p>
 <p>
-This would multiply our input by 2 then add 1. But remember you have to ask for the input before using it or the text will not appear. 
-When you create the text, the names of the inputs are listed below as shown in this example.
+&nbsp;&nbsp;&nbsp; Add Servings*0.5 cups of noodles.
 </p>
-<img class="img-responsive" src="Text_help-calExample.png" alt="index to of page image" style="width:700px;height:auto;" >
 <p>
-When you look at the Preview, this part of the step will look like this after you enter the numbers
-4 and 5 and select Save
+Next select the expression and click the calculate button
+ <img src="CalculatorIcon.png" alt="calc icon" align="bottom" style="height:22px;width:22px">
+in the edit control. The Calculate button turns makes expressions appear in italics.
+Your text will now look like this: 
 </p>
-<img class="img-responsive" src="Text_help-previewResult.png" alt="index to of page image" style="width:400px;height:auto;" >
+<img class="img-responsive" src="Text_help_expression.png" alt="Expressions image" style="width:700px;height:auto;">
+<p>
+When you look at this step in preview you will only see the result of the calculation. The text will appear when the user enters a number 
+and clicks Save.  If the user wants 4 servings then this text will look read “Add 2 cups of noodles.” 
+</p>
+<img class="img-responsive" src="Test_help_Preview.png" alt="preview image" style="width:700px;height:auto;">
+
 	</div>
 </div>
 </body>

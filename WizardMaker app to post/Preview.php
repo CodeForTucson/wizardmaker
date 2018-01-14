@@ -200,6 +200,7 @@ function createPage ($step,$scount,$filename,$from) { // passed GET|POST, step, 
 				if (strpos($texttemp, "<i>", 0) == false) {
 					print "<br>";
 					print $texttemp;  // 1 is true 0 is false -- no calculations so print
+					print "<br>";
 				} else if (addCalcs($texttemp) == "error") { // if calculation error -- print nothing
 					print "<br>";
 					print "<br>";
@@ -240,14 +241,14 @@ function createPage ($step,$scount,$filename,$from) { // passed GET|POST, step, 
 				
 				} else {
 					if (substr_compare($texttemp,".mp4",-4,4,TRUE) == 0) {
-					print '<video width="300" height="225" controls>
+					print '<video width="600" height="450" controls>
 							<source src="images/'. $texttemp . '" type="video/mp4">
 							 Your browser does not support the video tag.
 						</video>';
 			   			 print '<br>';
 			   			 print '<br>';		
 					} else {
-						print '<img src="images/'. $texttemp . '" alt="Picture missing" style="width:auto;height:300px;">';
+						print '<br><img src="images/'. $texttemp . '" alt="Picture missing" style="width:auto;height:300px;">';
 						print '<br>';
 						print '<br>';
 					}

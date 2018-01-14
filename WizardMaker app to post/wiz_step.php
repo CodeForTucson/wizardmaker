@@ -33,7 +33,7 @@ define('BUTTON_6', '<a href="" class="btn btn-primary" role="button">
          			</a>');
 define('BUTTON_7', '<button  class="btn btn-primary"  
 					onclick="setAndGo(0,\'add\',0)">
-    				<span class="glyphicon glyphicon-plus"></span>
+    				Add Step
     				</button>');
     				// onclick="setAndGo(0,\'add\')">
 /* define('BUTTON_4', '<a href="add_step.php" class="btn btn-primary" role="button">
@@ -161,7 +161,7 @@ function goSettings() {
 }
 </script>
 <?php
-print '<h3> Select a step to edit or select + to add a new step.</h3>';
+print '<h3> Select a step to edit or select Add Step to add a new step.</h3>';
 // list all the steps
 $xml=simplexml_load_file( $wfile) or die("Error: Cannot create object");
 $scount = 0; // index for step number

@@ -22,7 +22,7 @@ define('BUTTON_4', '');
 define('BUTTON_5', '');
 define('BUTTON_6', '');
 define('BUTTON_7', '<button class="btn btn-primary" role="button" onclick="goSettings()">
-					<span class="glyphicon glyphicon-plus"></span>
+					Add Wizard
 					</button>');
 
 // Include the header:
@@ -143,7 +143,7 @@ function goSettings() {
 </script>
 <?php
 // Leave the PHP section to display lots of HTML:
-print '<h3> Select a wizard or select + to add a new wizard</h3>';
+print '<h3> Select a wizard to edit or select Add Wizard to create new wizard</h3>';
 //find out how many wizards there are in wizlisting.xmlEncoding
 
 // for each listing, print the name and description 

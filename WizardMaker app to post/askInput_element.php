@@ -49,17 +49,18 @@ if ($_COOKIE['subBy'] == "add") {
 		
 	  print '<div class="row">
 				<div class="col-xs-6">
-					<p> When you use the Calculate feature of Text elements, the wizard performs a calculation based 
-					on a number that the user has already given the wizard. We don\'t know what that number will be so
-					we have to give it a name to refer to it when it comes.  That is the name you will enter here.
-					Just make up a word that starts with a letter and is composed of only letters and numbers (no dashes, underlines, etc.).
+					<p> 
+					This feature creates a label and input field so users can enter a number
+					that can used by Text elements to perform calculations. 
+					After creating a label create a name that will be used to refer to the input provided by the user.</p>	
+					<p>Just make up a name that starts with a letter and is composed of only letters and numbers (no dashes, spaces, underlines, etc.).
 					For more information select Help.</p>
 					<form action="askInput_element.php" method="post">
-						Label for the input box:<br>
+						Label for the input box (for example Number of Servings):<br>
 						<input type="text" name="askLabel" value="'. $wizInLabel . '">
 						<br>
 						<br>
-						Name of the number provided:<br>
+						Name of the number provided (for example, numServings):<br>
 					   <input type="text" name="askInput" value="' . $wizText . '">
 					   <br>
 					   <br>
@@ -98,14 +99,15 @@ if ($_COOKIE['subBy'] == "add") {
 // 		print '<br>';
 		  print '<div class="row">
 					<div class="col-xs-6">
-						<p> Edit the name that will refer to the number the user provides to the wizard.
-						Be sure the word that starts with a letter and is composed of only letters and numbers (no dashes, underlines, etc.).
+						<p> Edit the label for the input field and the name of the number that will be entered.
+						Be sure the name starts with a letter and is composed of only letters and numbers (no dashes, spaces underlines, etc.).
 						For more information select Help.</p>
 						<form action="askInput_element.php" method="post">
-							Label for the input box:<br>
+							Label for the input box (for example Number of Servings):<br>
 							<input type="text" name="askLabel" value="'. $wizInLabel . '">
 							<br>
-							Name of the number provided:<br>
+							<br>
+							Name of the number provided (for example, numServings):<br>
 							<input type="text" name="askInput" value="' . $wizText . '">
 							<br>
 							<br>

@@ -12,6 +12,7 @@ Copyright (C) 2018 Paul Tynan <http://www.betterstuffbetterlife.com/>
 $wname = $_COOKIE['c_name'];
 $wfile = $_COOKIE['c_file'];
 $snum = $_COOKIE['c_snum'];  // step number
+$snumNext = $snum + 1; // define the next step for the nextStep funciton and button
 // set the title
 define('WIZTITLE', $wname . ': Step ' . $snum );
 // set the four buttons left to right Edit/back nav, Settings, Preview, Done/plus sign
@@ -25,20 +26,23 @@ define('BUTTON_1', '<button class="btn btn-primary"
          			<span class="glyphicon glyphicon-chevron-left"></span>All Steps
          			</button>');
 */
-define('BUTTON_2', '<button class="btn btn-primary" role="button" onclick="togEdit()">
-         			Move/Del
-         			</button>');
+define('BUTTON_2', '<button  class="btn btn-primary"  
+					onclick="nextStep(\'' . $snumNext . '\')">
+    				Next Step
+    				</button>');
 define('BUTTON_3', '<a href="Help/Step_help.html" class="btn btn-primary" role="button" target="_blank">
          			Help
          			</a>');
 define('BUTTON_4', '<a href="Preview.php?wFrom=onestep" class="btn btn-primary" role="button" target="_blank">
          			Preview
          			</a>');
-define('BUTTON_5', '');
+define('BUTTON_5', '<button class="btn btn-primary" role="button" onclick="togEdit()">
+         			Move/Del
+         			</button>');         			
 define('BUTTON_6', '');
 define('BUTTON_7', '<button  class="btn btn-primary"  
 					onclick="setAndGo(0,\'add\')">
-    				<span class="glyphicon glyphicon-plus"></span>
+    				Add Element
     				</button>');
 // define('BUTTON_7', '<button  class="btn btn-primary"  
 // 					onclick="setAndGo(\'' . $eNum . '\',\'add\')">
@@ -155,6 +159,19 @@ function gotoElement(ecount,gotoElPage) {
     // need to create a path
     window.location.assign("http://betterstuffbetterlife.com/pttrot/WizardMakerApp/" + gotoElPage);
 }
+function nextStep(nextStp) {
+	// this function goes to the next step. If I'm on the last step I create a new one.
+	/* 
+if (count > 0) {
+	document.cookie = "c_snum=" + count;
+	}
+	// I don't need to change the filename and name so leave alone.
+    //document.cookie = "c_file=" + file;
+    document.cookie = "c_sname=" + title; //title of the step
+ */
+ 	document.cookie = "c_snum=" + nextStp;
+    window.location.assign("http://betterstuffbetterlife.com/pttrot/WizardMakerApp/add_step.php");
+}
 </script>
 <?php
 // Load in the wizard xml file
@@ -260,7 +277,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // second set of instructions
 print '<div class="row">
 			<div class="col-xs-12">
-				<h3> Select an element to edit or select + to add an element </h3>
+				<h3> Select an element to edit or select Add Element to add an element </h3>
 			</div>
 		</div>';
 

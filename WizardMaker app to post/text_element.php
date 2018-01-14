@@ -70,10 +70,12 @@ if ($_COOKIE['subBy'] == "add") { // adding a new bit of text
 		//sleep(10);
 		
 	  print '<div class="row">
-					<div class="col-xs-6">
-					<p> Enter some text for this step. 
-					To add a calculation type in a expresion using * to multiply, / 
-					to divide, + to add and - to subtract. For example you might enter
+					<div class="col-xs-7">
+					<p> Enter some text for this step. Use the buttons to create bold text, lists and
+					perform other formatting.</p>
+					<p>
+					To add a calculation to your text type in a expresion using "*" to multiply, "/" 
+					to divide, "+" to add and "-" to subtract. For example you might enter
 					"numServings*3" where numServings is the name of a number entered by a user
 					because you used an Ask for Input element. Use parentheses for more complex expressions.
 					</p>
@@ -103,10 +105,11 @@ if ($_COOKIE['subBy'] == "add") { // adding a new bit of text
 				Print '<br><form action="text_element.php" method="post">
 						<fieldset>
 							<label for="noise">Enter text here:</label>
-							<textarea id="noise" name="noise" class="widgEditor nothing">'
+							<textarea class="form-control" rows="6" id="area1" name="noise">'
 							. $wizText .
 							'</textarea>
 						</fieldset>
+						<br>
 						<fieldset class="submit">
 							<button type="submit" class="btn btn-primary">Save</button>
 						
@@ -145,10 +148,12 @@ if ($_COOKIE['subBy'] == "add") { // adding a new bit of text
 // 		print $wizText;
 // 		print '<br>';
 		  print '<div class="row">
-					<div class="col-xs-6">
-					<p> Edit the text for this step. 
-					To add a calculation type in a expresion using * to multiply, / 
-					to divide, + to add and - to subtract. For example you might enter
+					<div class="col-xs-7">
+					<p> Edit the text for this step. Use the buttons to create bold text, lists and
+					perform other formatting.</p>
+					<p>
+					To add a calculation to your text type in a expresion using "*" to multiply, "/" 
+					to divide, "+" to add and "-" to subtract. For example you might enter
 					"numServings*3" where numServings is the name of a number entered by a user
 					because you used an Ask for Input element. Use parentheses for more complex expressions.
 					</p>
@@ -178,10 +183,11 @@ if ($_COOKIE['subBy'] == "add") { // adding a new bit of text
 				Print '<br><form action="text_element.php" method="post">
 						<fieldset>
 							<label for="noise">Enter text here:</label>
-							<textarea id="noise" name="noise" class="widgEditor nothing">'
+							<textarea class="form-control" rows="6" id="area1" name="noise">'
 							. $wizText .
 							'</textarea>
 						</fieldset>
+						<br>
 						<fieldset class="submit">
 							<button type="submit" class="btn btn-primary">Save</button>
 						
